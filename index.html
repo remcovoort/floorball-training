@@ -82,10 +82,10 @@ const PROGRAMS=[
   {id:"o14",age:"13–14 jaar",title:"O14",text:"Overgang naar grootveld: opbouw, omschakelen en partijvormen.",color:"#1d7f8c"},
   {id:"o18",age:"16–18 jaar",title:"O18",text:"Tempo, beslissen onder druk en samenspel. Warming-up, kern en afsluiting.",color:"#d63b2f"}
 ];
-const top=p=>`<span class="top"><span class="age">${p.age}</span><span class="count" data-prog="${p.id}"></span></span>`;
+const cardTop=p=>`<span class="top"><span class="age">${p.age}</span><span class="count" data-prog="${p.id}"></span></span>`;
 document.getElementById("progs").innerHTML=PROGRAMS.map(p=>p.soon
-  ?`<div class="prog soon" style="--c:${p.color}">${top(p)}<h2>${p.title}</h2><p>${p.text}</p><span class="go">Komt eraan</span></div>`
-  :`<a class="prog" style="--c:${p.color}" href="${p.id}/">${top(p)}<h2>${p.title}</h2><p>${p.text}</p><span class="go">Open ${p.go||p.title} →</span></a>`).join("");
+  ?`<div class="prog soon" style="--c:${p.color}">${cardTop(p)}<h2>${p.title}</h2><p>${p.text}</p><span class="go">Komt eraan</span></div>`
+  :`<a class="prog" style="--c:${p.color}" href="${p.id}/">${cardTop(p)}<h2>${p.title}</h2><p>${p.text}</p><span class="go">Open ${p.go||p.title} →</span></a>`).join("");
 /* Aantal oefeningen per programma, uit de gedeelde oefeningenlijst. */
 fetch("shared/exercises.json").then(r=>r.ok?r.json():null).then(data=>{
   if(!data)return;
