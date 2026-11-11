@@ -1,0 +1,532 @@
+{
+ "gymles": [
+  {
+   "id": "stoplicht",
+   "title": "Stoplicht",
+   "cat": "Warming-up",
+   "phase": "Warming-up"
+  },
+  {
+   "id": "balletje-tik",
+   "title": "Balletje-tik",
+   "cat": "Warming-up",
+   "phase": "Warming-up"
+  },
+  {
+   "id": "schaduw",
+   "title": "Schaduwdribbel",
+   "cat": "Warming-up",
+   "phase": "Warming-up"
+  },
+  {
+   "id": "schatrovers",
+   "title": "Schatrovers",
+   "cat": "Warming-up",
+   "phase": "Warming-up"
+  },
+  {
+   "id": "tikkertje-opdracht",
+   "title": "Tikkertje met opdracht",
+   "cat": "Warming-up",
+   "phase": "Warming-up"
+  },
+  {
+   "id": "slalom",
+   "title": "Slalom-estafette",
+   "cat": "Dribbelen",
+   "phase": "Kern"
+  },
+  {
+   "id": "pionnenbos",
+   "title": "Pionnenbos",
+   "cat": "Dribbelen",
+   "phase": "Kern"
+  },
+  {
+   "id": "tijdrace",
+   "title": "Tijdrace",
+   "cat": "Dribbelen",
+   "phase": "Kern"
+  },
+  {
+   "id": "fruitsalade",
+   "title": "Fruitsalade",
+   "cat": "Dribbelen",
+   "phase": "Kern"
+  },
+  {
+   "id": "annemaria",
+   "title": "Annemaria koekoek",
+   "cat": "Dribbelen",
+   "phase": "Kern"
+  },
+  {
+   "id": "nest-zoeken",
+   "title": "Nest zoeken",
+   "cat": "Dribbelen",
+   "phase": "Kern"
+  },
+  {
+   "id": "tweetallen",
+   "title": "Passen in tweetallen",
+   "cat": "Passen",
+   "phase": "Kern"
+  },
+  {
+   "id": "driehoek",
+   "title": "Driehoekpass",
+   "cat": "Passen",
+   "phase": "Kern"
+  },
+  {
+   "id": "sternpassen",
+   "title": "Sterpassen",
+   "cat": "Passen",
+   "phase": "Kern"
+  },
+  {
+   "id": "aanspeelstations",
+   "title": "Aanspeelstations",
+   "cat": "Passen",
+   "phase": "Kern"
+  },
+  {
+   "id": "pionnen-omschieten",
+   "title": "Pionnen omschieten",
+   "cat": "Schieten",
+   "phase": "Kern"
+  },
+  {
+   "id": "dribbel-schiet",
+   "title": "Dribbel en schiet",
+   "cat": "Schieten",
+   "phase": "Kern"
+  },
+  {
+   "id": "lunapark",
+   "title": "Lunapark",
+   "cat": "Schieten",
+   "phase": "Kern"
+  },
+  {
+   "id": "rollmops",
+   "title": "Rollmops",
+   "cat": "Schieten",
+   "phase": "Kern"
+  },
+  {
+   "id": "bowling",
+   "title": "Floorball-bowling",
+   "cat": "Schieten",
+   "phase": "Kern"
+  },
+  {
+   "id": "kegels",
+   "title": "Kegels omschieten",
+   "cat": "Schieten",
+   "phase": "Kern"
+  },
+  {
+   "id": "carrousel",
+   "title": "Carrousel",
+   "cat": "Schieten",
+   "phase": "Kern"
+  },
+  {
+   "id": "penaltyspel",
+   "title": "Penaltyspel",
+   "cat": "Schieten",
+   "phase": "Kern"
+  },
+  {
+   "id": "koning-vak",
+   "title": "Koning van het vak",
+   "cat": "Balbeheersing",
+   "phase": "Kern"
+  },
+  {
+   "id": "uitdagen-finten",
+   "title": "Uitdagen met schijnbeweging",
+   "cat": "Balbeheersing",
+   "phase": "Kern"
+  },
+  {
+   "id": "een-tegen-een",
+   "title": "1 tegen 1 naar de lijn",
+   "cat": "Spel",
+   "phase": "Partij"
+  },
+  {
+   "id": "drie-drie",
+   "title": "3 tegen 3 op kleine doeltjes",
+   "cat": "Spel",
+   "phase": "Partij"
+  },
+  {
+   "id": "lijnbal",
+   "title": "Lijnbal",
+   "cat": "Spel",
+   "phase": "Partij"
+  },
+  {
+   "id": "vier-doeltjes",
+   "title": "Vier doeltjes",
+   "cat": "Spel",
+   "phase": "Partij"
+  },
+  {
+   "id": "joker-partij",
+   "title": "Partij met joker",
+   "cat": "Spel",
+   "phase": "Partij"
+  },
+  {
+   "id": "pionnen-omver",
+   "title": "Pionnen omver",
+   "cat": "Spel",
+   "phase": "Partij"
+  },
+  {
+   "id": "kast-afbouwen",
+   "title": "Kast afbouwen",
+   "cat": "Spel",
+   "phase": "Partij"
+  }
+ ],
+ "o12": [
+  {
+   "id": "tikspel",
+   "title": "Tikkertje met bal",
+   "cat": "Warming-up",
+   "phase": "Warming-up"
+  },
+  {
+   "id": "vierkant",
+   "title": "Pass en volg in het vierkant",
+   "cat": "Warming-up",
+   "phase": "Warming-up"
+  },
+  {
+   "id": "rondo",
+   "title": "Rondo 4 tegen 1",
+   "cat": "Warming-up",
+   "phase": "Warming-up"
+  },
+  {
+   "id": "doelen-verzamelen",
+   "title": "Doelen verzamelen",
+   "cat": "Warming-up",
+   "phase": "Warming-up"
+  },
+  {
+   "id": "minuut-passen",
+   "title": "Passen in een minuut",
+   "cat": "Passen",
+   "phase": "Kern"
+  },
+  {
+   "id": "pionnen-stick",
+   "title": "Passen en stickhandling bij de pionnen",
+   "cat": "Passen",
+   "phase": "Kern"
+  },
+  {
+   "id": "dribbel-estafette",
+   "title": "Dribbelestafette",
+   "cat": "Passen",
+   "phase": "Kern"
+  },
+  {
+   "id": "hinderbaan",
+   "title": "Hindernisbaan met bal",
+   "cat": "Vaardigheid",
+   "phase": "Kern"
+  },
+  {
+   "id": "vaardigheidsproef",
+   "title": "Drie vaardigheden",
+   "cat": "Vaardigheid",
+   "phase": "Kern"
+  },
+  {
+   "id": "schot-beweging",
+   "title": "Dribbelen, passen, schieten",
+   "cat": "Schieten",
+   "phase": "Kern"
+  },
+  {
+   "id": "een-een-poortjes",
+   "title": "1 tegen 1 op poortjes",
+   "cat": "Duels",
+   "phase": "Kern"
+  },
+  {
+   "id": "twee-een",
+   "title": "2 tegen 1",
+   "cat": "Omschakelen",
+   "phase": "Kern"
+  },
+  {
+   "id": "drie-drie",
+   "title": "3 tegen 3 op kleine doeltjes",
+   "cat": "Partijvorm",
+   "phase": "Kern"
+  },
+  {
+   "id": "lijnteam",
+   "title": "3 tegen 3 op één doel met lijnteam",
+   "cat": "Partijvorm",
+   "phase": "Kern"
+  },
+  {
+   "id": "twee-twee-dwars",
+   "title": "2 tegen 2 dwars over het veld",
+   "cat": "Partijvorm",
+   "phase": "Kern"
+  },
+  {
+   "id": "partij-klein",
+   "title": "Kleinveldpartij 3 tegen 3",
+   "cat": "Spel",
+   "phase": "Afsluiting"
+  },
+  {
+   "id": "koningsbal",
+   "title": "Koningsbal",
+   "cat": "Spel",
+   "phase": "Afsluiting"
+  },
+  {
+   "id": "muurbal",
+   "title": "Muurbal",
+   "cat": "Spel",
+   "phase": "Afsluiting"
+  }
+ ],
+ "o14": [
+  {
+   "id": "vierkant",
+   "title": "Pass en volg in het vierkant",
+   "cat": "Warming-up",
+   "phase": "Warming-up"
+  },
+  {
+   "id": "rondo",
+   "title": "Rondo 4 tegen 2",
+   "cat": "Warming-up",
+   "phase": "Warming-up"
+  },
+  {
+   "id": "duel",
+   "title": "Duel",
+   "cat": "Warming-up",
+   "phase": "Warming-up"
+  },
+  {
+   "id": "nummer-passen",
+   "title": "Nummerpassen",
+   "cat": "Passen",
+   "phase": "Kern"
+  },
+  {
+   "id": "minuut-passen",
+   "title": "Passen in een minuut",
+   "cat": "Passen",
+   "phase": "Kern"
+  },
+  {
+   "id": "pionnen-stick",
+   "title": "Passen en stickhandling bij de pionnen",
+   "cat": "Passen",
+   "phase": "Kern"
+  },
+  {
+   "id": "parcours",
+   "title": "Passen door het obstakelparcours",
+   "cat": "Passen",
+   "phase": "Kern"
+  },
+  {
+   "id": "schot-beweging",
+   "title": "Schieten uit de beweging",
+   "cat": "Schieten",
+   "phase": "Kern"
+  },
+  {
+   "id": "rebound",
+   "title": "Voor het doel: tippen en rebound",
+   "cat": "Schieten",
+   "phase": "Kern"
+  },
+  {
+   "id": "twee-een",
+   "title": "2 tegen 1 met omschakeling",
+   "cat": "Omschakelen",
+   "phase": "Kern"
+  },
+  {
+   "id": "drie-twee",
+   "title": "3 tegen 2 op en neer",
+   "cat": "Omschakelen",
+   "phase": "Kern"
+  },
+  {
+   "id": "opbouw",
+   "title": "Opbouw vanaf eigen doel",
+   "cat": "Positiespel",
+   "phase": "Kern"
+  },
+  {
+   "id": "drie-drie",
+   "title": "3 tegen 3 op kleine doeltjes",
+   "cat": "Partijvorm",
+   "phase": "Kern"
+  },
+  {
+   "id": "lijnteam",
+   "title": "3 tegen 3 op één doel met lijnteam",
+   "cat": "Partijvorm",
+   "phase": "Kern"
+  },
+  {
+   "id": "partij-klein",
+   "title": "Kleinveldpartij 3 tegen 3",
+   "cat": "Spel",
+   "phase": "Afsluiting"
+  },
+  {
+   "id": "partij-thema",
+   "title": "Grootveldpartij met thema",
+   "cat": "Spel",
+   "phase": "Afsluiting"
+  }
+ ],
+ "o18": [
+  {
+   "id": "rondo",
+   "title": "Rondo 4 tegen 2",
+   "cat": "Warming-up",
+   "phase": "Warming-up"
+  },
+  {
+   "id": "vierkant",
+   "title": "Pass en volg in het vierkant",
+   "cat": "Warming-up",
+   "phase": "Warming-up"
+  },
+  {
+   "id": "mikko-1",
+   "title": "Mikko 1",
+   "cat": "Warming-up",
+   "phase": "Warming-up"
+  },
+  {
+   "id": "mikko-2",
+   "title": "Mikko 2",
+   "cat": "Warming-up",
+   "phase": "Warming-up"
+  },
+  {
+   "id": "mikko-3",
+   "title": "Mikko 3",
+   "cat": "Warming-up",
+   "phase": "Warming-up"
+  },
+  {
+   "id": "duel",
+   "title": "Duel",
+   "cat": "Warming-up",
+   "phase": "Warming-up"
+  },
+  {
+   "id": "nummer-passen",
+   "title": "Nummerpassen",
+   "cat": "Passen",
+   "phase": "Kern"
+  },
+  {
+   "id": "minuut-passen",
+   "title": "Passen in een minuut",
+   "cat": "Passen",
+   "phase": "Kern"
+  },
+  {
+   "id": "pionnen-stick",
+   "title": "Passen en stickhandling bij de pionnen",
+   "cat": "Passen",
+   "phase": "Kern"
+  },
+  {
+   "id": "draai-180",
+   "title": "Draaien met de bal op de forehand",
+   "cat": "Passen",
+   "phase": "Kern"
+  },
+  {
+   "id": "parcours",
+   "title": "Passen door het obstakelparcours",
+   "cat": "Passen",
+   "phase": "Kern"
+  },
+  {
+   "id": "halve-cirkel",
+   "title": "Halve cirkel naar de verkeerde kant",
+   "cat": "Schieten",
+   "phase": "Kern"
+  },
+  {
+   "id": "schot-beweging",
+   "title": "Schieten uit de beweging",
+   "cat": "Schieten",
+   "phase": "Kern"
+  },
+  {
+   "id": "rebound",
+   "title": "Screen en rebound",
+   "cat": "Schieten",
+   "phase": "Kern"
+  },
+  {
+   "id": "drie-doelen",
+   "title": "Drie-doelen-spel",
+   "cat": "Omschakelen",
+   "phase": "Kern"
+  },
+  {
+   "id": "twee-een",
+   "title": "2 tegen 1 met omschakeling",
+   "cat": "Omschakelen",
+   "phase": "Kern"
+  },
+  {
+   "id": "drie-twee",
+   "title": "3 tegen 2 op en neer",
+   "cat": "Omschakelen",
+   "phase": "Kern"
+  },
+  {
+   "id": "drie-drie",
+   "title": "3 tegen 3 in een kleine zone",
+   "cat": "Partijvorm",
+   "phase": "Kern"
+  },
+  {
+   "id": "lijnteam",
+   "title": "3 tegen 3 op één doel met lijnteam",
+   "cat": "Partijvorm",
+   "phase": "Kern"
+  },
+  {
+   "id": "partij-thema",
+   "title": "Partij met thema",
+   "cat": "Spel",
+   "phase": "Afsluiting"
+  },
+  {
+   "id": "powerplay",
+   "title": "Powerplay en boxplay",
+   "cat": "Speciale situaties",
+   "phase": "Afsluiting"
+  }
+ ]
+}
