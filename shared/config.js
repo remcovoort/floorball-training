@@ -1,7 +1,5 @@
-/* Instellingen voor de online scores en statistieken (Supabase).
-   Vul hier de Project URL en de publishable/anon key van je Supabase-project in.
-   De publishable key is bedoeld voor gebruik in de browser en mag openbaar zijn. */
+/* Koppeling met de database voor scores en feedback. De publishable key mag openbaar zijn. */
 window.FB_CONFIG = {
-  supabaseUrl: "",
-  supabaseKey: ""
+  supabaseUrl: "https://agkhomwkcbvbdczqzzey.supabase.co",
+  supabaseKey: "sb_publishable_Pe62visrCSVW7xYL1UlCqg_H8c83ui9"
 };
