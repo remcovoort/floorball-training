@@ -33,13 +33,15 @@ h1{font:800 clamp(44px,9vw,72px)/.92 var(--display);text-transform:uppercase;mar
 .grid{display:grid;grid-template-columns:repeat(4,minmax(0,1fr));gap:14px;margin-top:10px}
 @media (max-width:720px){.grid{grid-template-columns:repeat(2,minmax(0,1fr))}}
 @media (max-width:380px){.grid{grid-template-columns:1fr}}
-.prog{display:grid;gap:8px;align-content:start;background:var(--surface);border:1px solid var(--line);border-top:6px solid var(--c);border-radius:12px;padding:16px;color:inherit;text-decoration:none;min-height:200px}
+.prog{display:flex;flex-direction:column;gap:8px;background:var(--surface);border:1px solid var(--line);border-top:6px solid var(--c);border-radius:12px;padding:16px;color:inherit;text-decoration:none;min-height:200px}
 a.prog:hover{border-color:var(--c);transform:translateY(-2px)}
 a.prog:focus-visible{outline:3px solid var(--accent);outline-offset:2px}
+.prog .top{display:flex;justify-content:space-between;align-items:baseline;gap:8px}
 .prog .age{font:800 15px var(--display);letter-spacing:.08em;text-transform:uppercase;color:var(--c)}
+.prog .count{font-size:12px;color:var(--muted);white-space:nowrap}
 .prog h2{font:800 clamp(26px,3.4vw,34px)/1 var(--display);margin:0;text-transform:uppercase}
 .prog p{margin:0;color:var(--muted);font-size:15px}
-.prog .go{margin-top:auto;font-weight:700;color:var(--ink)}
+.prog .go{margin-top:auto;padding-top:4px;font-weight:700;color:var(--ink)}
 .prog.soon{opacity:.6;border-style:dashed;border-top-style:solid}
 .prog.soon .go{color:var(--muted);font-weight:400}
 .how{margin-top:28px;display:grid;grid-template-columns:repeat(auto-fit,minmax(210px,1fr));gap:12px}
@@ -80,9 +82,18 @@ const PROGRAMS=[
   {id:"o14",age:"13–14 jaar",title:"O14",text:"Overgang naar grootveld: opbouw, omschakelen en partijvormen.",color:"#1d7f8c"},
   {id:"o18",age:"16–18 jaar",title:"O18",text:"Tempo, beslissen onder druk en samenspel. Warming-up, kern en afsluiting.",color:"#d63b2f"}
 ];
+const top=p=>`<span class="top"><span class="age">${p.age}</span><span class="count" data-prog="${p.id}"></span></span>`;
 document.getElementById("progs").innerHTML=PROGRAMS.map(p=>p.soon
-  ?`<div class="prog soon" style="--c:${p.color}"><span class="age">${p.age}</span><h2>${p.title}</h2><p>${p.text}</p><span class="go">Komt eraan</span></div>`
-  :`<a class="prog" style="--c:${p.color}" href="${p.id}/"><span class="age">${p.age}</span><h2>${p.title}</h2><p>${p.text}</p><span class="go">Open ${p.go||p.title} →</span></a>`).join("");
+  ?`<div class="prog soon" style="--c:${p.color}">${top(p)}<h2>${p.title}</h2><p>${p.text}</p><span class="go">Komt eraan</span></div>`
+  :`<a class="prog" style="--c:${p.color}" href="${p.id}/">${top(p)}<h2>${p.title}</h2><p>${p.text}</p><span class="go">Open ${p.go||p.title} →</span></a>`).join("");
+/* Aantal oefeningen per programma, uit de gedeelde oefeningenlijst. */
+fetch("shared/exercises.json").then(r=>r.ok?r.json():null).then(data=>{
+  if(!data)return;
+  document.querySelectorAll(".count[data-prog]").forEach(el=>{
+    const n=(data[el.dataset.prog]||[]).length;
+    if(n)el.textContent=n+(n===1?" oefening":" oefeningen");
+  });
+}).catch(()=>{});
 let deferred=null;const ib=document.getElementById("install");
 addEventListener("beforeinstallprompt",e=>{e.preventDefault();deferred=e;ib.style.display="inline-block"});
 ib.addEventListener("click",async()=>{if(!deferred)return;deferred.prompt();await deferred.userChoice.catch(()=>{});deferred=null;ib.style.display="none"});
