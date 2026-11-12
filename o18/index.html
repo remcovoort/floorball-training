@@ -75,6 +75,7 @@ svg.court{width:100%;height:auto;display:block}
 .a-shot{stroke:var(--accent);stroke-width:2.6;fill:none}
 .c-head{fill:var(--ink)} .c-head-acc{fill:var(--accent)} .c-head-mut{fill:var(--muted)}
 .c-text{fill:var(--muted);font:700 9px var(--body)}
+.c-fluit{fill:var(--accent);stroke:var(--ink);stroke-width:.8;stroke-linejoin:round} .c-fluit-gat{fill:var(--surface);stroke:var(--ink);stroke-width:.6} .c-fluit-golf{fill:none;stroke:var(--ink);stroke-width:1.3;stroke-linecap:round}
 
 .legend{display:flex;flex-wrap:wrap;gap:6px 16px;font-size:13px;color:var(--muted);margin-block:0 16px}
 .legend span{display:inline-flex;align-items:center;gap:6px}
@@ -426,7 +427,8 @@ const EX = [
    {t:"p",x:110,y:140,ball:1},{t:"p",x:170,y:150,team:"b"},
    {t:"a",k:"pass",d:"M58 49 L102 41"},{t:"a",k:"pass",d:"M207 48 L248 76"},{t:"a",k:"pass",d:"M118 141 L162 149"},
    {t:"a",k:"dribble",d:"M84 92 Q74 104 60 100"},{t:"a",k:"dribble",d:"M222 104 Q240 120 256 112"},{t:"a",k:"dribble",d:"M150 130 Q140 150 120 152"},
-   {t:"txt",x:8,y:14,s:"30–40 sec passen in beweging"},{t:"txt",x:8,y:174,s:"fluit: 10 sec duel binnen elk duo"}]},
+   {t:"txt",x:8,y:14,s:"30–40 sec passen in beweging"},{t:"txt",x:8,y:174,s:"fluit: 10 sec duel binnen elk duo"},
+   {t:"fluit",x:160,y:96,at:4.4}]},
 
 
  {id:"drie-doelen",cat:"Omschakelen",title:"Drie-doelen-spel",int:"hoog",min:15,kids:"4 tegen 3 + keeper, wissels klaar",
@@ -948,6 +950,15 @@ function svg(ex,uid,still){
   /* losse bal bij passes en schoten */
   if(P)P.balls.forEach(b=>{const mo=motion([[0,0],[b.at,0],[b.end,1],[1,1]]),s=steps([[0,0],[b.at,1],[b.hide,0]]);
     out+=`<g opacity="0"><circle r="3.2" class="c-ball"/><animateMotion ${anim(P.cyc,`calcMode="linear" path="${b.d}" keyPoints="${mo.kp}" keyTimes="${mo.kt}"`)}/><animate attributeName="opacity" ${anim(P.cyc,`calcMode="discrete" values="${s.v}" keyTimes="${s.t}"`)}/></g>`});
+  /* fluitje: verschijnt op het fluitsignaal (f.at, in seconden) en geluidsgolven knipperen */
+  ex.fig.filter(f=>f.t==="fluit").forEach(f=>{
+    let an="",wv="";
+    if(P){const a=f.at*(ex.tempo||1)/P.cyc,d=1.6/P.cyc,s=steps([[0,0],[a,1],[a+d,0]]);
+      an=`<animate attributeName="opacity" ${anim(P.cyc,`calcMode="discrete" values="${s.v}" keyTimes="${s.t}"`)}/>`;
+      const q=.2/P.cyc,w=steps([[0,0],[a,1],[a+q,0],[a+2*q,1],[a+3*q,0],[a+4*q,1],[a+5*q,0],[a+6*q,1],[a+d,0]]);
+      wv=`<animate attributeName="opacity" ${anim(P.cyc,`calcMode="discrete" values="${w.v}" keyTimes="${w.t}"`)}/>`}
+    out+=`<g transform="translate(${f.x} ${f.y})"${P?' opacity="0"':""}><path d="M10 -4 L10 1 L2.92 1 A6 6 0 1 1 -3 -4 Z" class="c-fluit"/><circle cx="-3" cy="2" r="2" class="c-fluit-gat"/><g${P?' opacity="0"':""}><path d="M13.5 -6 Q16 -1.5 13.5 3" class="c-fluit-golf"/><path d="M17.5 -9 Q21.5 -1.5 17.5 6" class="c-fluit-golf"/>${wv}</g>${an}</g>`;
+  });
   out+=ex.fig.filter(f=>f.t==="txt").map(f=>`<text x="${f.x}" y="${f.y}" class="c-text">${f.s}</text>`).join("");
   out+=`<text x="292" y="174" text-anchor="end" class="c-maat">veld ${ex.maat}</text>`;
   return out+"</svg>";

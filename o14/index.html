@@ -75,6 +75,7 @@ svg.court{width:100%;height:auto;display:block}
 .a-shot{stroke:var(--accent);stroke-width:2.6;fill:none}
 .c-head{fill:var(--ink)} .c-head-acc{fill:var(--accent)} .c-head-mut{fill:var(--muted)}
 .c-text{fill:var(--muted);font:700 9px var(--body)}
+.c-fluit{fill:var(--accent);stroke:var(--ink);stroke-width:.8;stroke-linejoin:round} .c-fluit-gat{fill:var(--surface);stroke:var(--ink);stroke-width:.6} .c-fluit-golf{fill:none;stroke:var(--ink);stroke-width:1.3;stroke-linecap:round}
 
 .legend{display:flex;flex-wrap:wrap;gap:6px 16px;font-size:13px;color:var(--muted);margin-block:0 16px}
 .legend span{display:inline-flex;align-items:center;gap:6px}
@@ -253,6 +254,25 @@ svg.hall{width:100%;height:auto;display:block}
   .pr-ob ul{margin:0 0 6pt;padding-left:16pt}
   .pr-ob svg{width:100%;max-width:16cm;height:auto}
 }
+/* 3D-animatie bij Duel */
+.d3-tabs{display:inline-grid;grid-template-columns:1fr 1fr;border:1.5px solid var(--ink);border-radius:9px;overflow:hidden;justify-self:start}
+.d3-tabs button{font:inherit;font-size:14px;font-weight:700;padding:7px 14px;border:none;background:var(--surface);color:var(--ink);cursor:pointer}
+.d3-tabs button+button{border-left:1.5px solid var(--ink)}
+.d3-tabs button[aria-pressed="true"]{background:var(--ink);color:var(--surface)}
+.d3{position:relative;width:100%;aspect-ratio:16/9;border-radius:10px;overflow:hidden;background:#12171D}
+.d3-stage{position:absolute;left:0;top:0;width:1920px;height:1080px;transform-origin:0 0;overflow:hidden;
+  --ground:#12171D;--main:#6FC0CF;--second:#E8EDF2;--accent:#FF6B5E;--sans:var(--body);color:var(--second);font-family:var(--body);line-height:1.3;
+  --floor:color-mix(in srgb, var(--main) 65%, var(--second));--teamb:#1C6FB8;--floordeep:color-mix(in srgb, var(--main) 16%, var(--ground));--board:color-mix(in srgb, var(--second) 82%, var(--main));--boardshade:color-mix(in srgb, var(--second) 40%, var(--ground));--paint:color-mix(in srgb, var(--ground) 60%, var(--main));--lamp:color-mix(in srgb, var(--second) 60%, var(--main));--stick:color-mix(in srgb, var(--second) 85%, var(--ground));--shorts:color-mix(in srgb, var(--ground) 70%, var(--main));--skin:color-mix(in srgb, var(--second) 55%, var(--accent))}
+.d3-stage svg{overflow:visible}
+.d3-ground{position:absolute;inset:0;background:var(--ground)}
+.d3-air{position:absolute;inset:0;background:radial-gradient(80% 70% at 50% 42%, color-mix(in srgb, var(--main) 16%, var(--ground)), var(--ground) 70%)}
+.d3-art{position:absolute;inset:0;width:100%;height:100%}
+.d3-edge{position:absolute;inset:0;background:radial-gradient(95% 85% at 50% 50%, transparent 58%, color-mix(in srgb, var(--ground) 70%, transparent))}
+.d3-calm{position:absolute;left:0;top:0;width:62%;height:40%;background:radial-gradient(100% 100% at 0 0, color-mix(in srgb, var(--ground) 92%, transparent) 50%, transparent)}
+.d3-words{position:absolute;margin:0;display:flex;flex-direction:column;gap:18px}.d3-words>*{margin:0}
+.d3-eyebrow{font-family:var(--display);font-weight:800;font-size:72px;letter-spacing:.08em;text-transform:uppercase;color:var(--accent);line-height:1.05}
+.d3-head,.d3-sub{display:none}
+.d3-play{position:absolute;right:10px;bottom:10px;font:inherit;font-size:14px;font-weight:700;border:none;border-radius:999px;padding:6px 14px;background:rgb(232 237 242 / .92);color:#12171D;cursor:pointer}
 .fb-home{display:inline-flex;align-items:center;gap:6px;font:700 15px var(--body);color:var(--ink);text-decoration:none;border:1.5px solid var(--line);border-radius:999px;padding:5px 12px;justify-self:start;background:var(--surface)}
 .fb-home:hover{border-color:var(--ink)}
 @media print{.fb-home{display:none!important}}
@@ -371,7 +391,8 @@ const EX = [
    {t:"p",x:110,y:140,ball:1},{t:"p",x:170,y:150,team:"b"},
    {t:"a",k:"pass",d:"M58 49 L102 41"},{t:"a",k:"pass",d:"M207 48 L248 76"},{t:"a",k:"pass",d:"M118 141 L162 149"},
    {t:"a",k:"dribble",d:"M84 92 Q74 104 60 100"},{t:"a",k:"dribble",d:"M222 104 Q240 120 256 112"},{t:"a",k:"dribble",d:"M150 130 Q140 150 120 152"},
-   {t:"txt",x:8,y:14,s:"30–40 sec passen in beweging"},{t:"txt",x:8,y:174,s:"fluit: 10 sec duel binnen elk duo"}]},
+   {t:"txt",x:8,y:14,s:"30–40 sec passen in beweging"},{t:"txt",x:8,y:174,s:"fluit: 10 sec duel binnen elk duo"},
+   {t:"fluit",x:160,y:96,at:4.4}]},
  {id:"nummer-passen",veld:"beide",cat:"Passen",title:"Nummerpassen",int:"middel",min:10,kids:"2 groepen van 3–5 per vak",
   mat:["stick per speler","1 bal per groep","hesjes in 2 kleuren","pionnen om vakken af te zetten"],
   doel:"Rondkijken en vrijlopen: tussen een andere groep door bewegen en in een vaste volgorde passen.",
@@ -869,6 +890,15 @@ function svg(ex,uid,still){
   /* losse bal bij passes en schoten */
   if(P)P.balls.forEach(b=>{const mo=motion([[0,0],[b.at,0],[b.end,1],[1,1]]),s=steps([[0,0],[b.at,1],[b.hide,0]]);
     out+=`<g opacity="0"><circle r="3.2" class="c-ball"/><animateMotion ${anim(P.cyc,`calcMode="linear" path="${b.d}" keyPoints="${mo.kp}" keyTimes="${mo.kt}"`)}/><animate attributeName="opacity" ${anim(P.cyc,`calcMode="discrete" values="${s.v}" keyTimes="${s.t}"`)}/></g>`});
+  /* fluitje: verschijnt op het fluitsignaal (f.at, in seconden) en geluidsgolven knipperen */
+  ex.fig.filter(f=>f.t==="fluit").forEach(f=>{
+    let an="",wv="";
+    if(P){const a=f.at*(ex.tempo||1)/P.cyc,d=1.6/P.cyc,s=steps([[0,0],[a,1],[a+d,0]]);
+      an=`<animate attributeName="opacity" ${anim(P.cyc,`calcMode="discrete" values="${s.v}" keyTimes="${s.t}"`)}/>`;
+      const q=.2/P.cyc,w=steps([[0,0],[a,1],[a+q,0],[a+2*q,1],[a+3*q,0],[a+4*q,1],[a+5*q,0],[a+6*q,1],[a+d,0]]);
+      wv=`<animate attributeName="opacity" ${anim(P.cyc,`calcMode="discrete" values="${w.v}" keyTimes="${w.t}"`)}/>`}
+    out+=`<g transform="translate(${f.x} ${f.y})"${P?' opacity="0"':""}><path d="M10 -4 L10 1 L2.92 1 A6 6 0 1 1 -3 -4 Z" class="c-fluit"/><circle cx="-3" cy="2" r="2" class="c-fluit-gat"/><g${P?' opacity="0"':""}><path d="M13.5 -6 Q16 -1.5 13.5 3" class="c-fluit-golf"/><path d="M17.5 -9 Q21.5 -1.5 17.5 6" class="c-fluit-golf"/>${wv}</g>${an}</g>`;
+  });
   out+=ex.fig.filter(f=>f.t==="txt").map(f=>`<text x="${f.x}" y="${f.y}" class="c-text">${f.s}</text>`).join("");
   out+=`<text x="292" y="174" text-anchor="end" class="c-maat">veld ${ex.maat}</text>`;
   return out+"</svg>";
@@ -940,7 +970,7 @@ function openEx(id){
   dlg.className="ph-"+phaseOf(e.cat);
   document.getElementById("dlg-title").textContent=e.title;
   document.getElementById("dlg-body").innerHTML=`
-    <div class="field">${svg(e,"d"+i)}</div>
+    ${id==="duel"?`<div class="d3-tabs" role="group" aria-label="Weergave"><button type="button" data-d3="1" aria-pressed="true">3D-animatie</button><button type="button" data-d3="0" aria-pressed="false">Tekening</button></div><div class="d3" id="d3box" role="img" aria-label="3D-animatie van Duel: duo's passen al lopend door de zaal en duelleren op het fluitsignaal"></div><div class="field" id="d3field" hidden>${svg(e,"d"+i)}</div>`:`<div class="field">${svg(e,"d"+i)}</div>`}
     <div class="timer"><div><div class="num">Timer</div><div class="t" id="t-disp">${fmt(tLeft)}</div></div>
       <div class="ctl"><button type="button" class="btn primary" id="t-go">Start</button><button type="button" class="btn" id="t-reset">Opnieuw</button></div></div>
     <p style="margin:0"><strong>Doel:</strong> ${e.doel}</p>
@@ -955,8 +985,10 @@ function openEx(id){
       <div class="box hard"><h4>Moeilijker</h4><ul>${e.moeilijker.map(x=>`<li>${x}</li>`).join("")}</ul></div>
     </div>
     <div class="actions"><button type="button" class="btn ${inLes?"added":""}" data-toggle="${e.id}" aria-pressed="${inLes}">${inLes?`✓ ${C.inLabel}`:`+ Voeg toe aan ${C.unit}`}</button>${inLes?tStep(sl):""}</div>`;
+  stopD3();if(id==="duel"){const b=document.getElementById("d3box");if(b&&window.Duel3D)d3Stop=Duel3D.mount(b,reduceMotion,()=>paused)}
   if(!dlg.open)dlg.showModal();
 }
+let d3Stop=null;function stopD3(){if(d3Stop){d3Stop();d3Stop=null}}
 document.addEventListener("click",ev=>{
   const b=ev.target.closest("button,[data-close]");if(!b)return;
   if(b.dataset.cat){filter=b.dataset.cat;renderFilters();renderGrid()}
@@ -982,7 +1014,11 @@ document.addEventListener("click",ev=>{
   if(b.id==="t-go"){if(tInt){stopTimer();b.textContent="Verder"}else{if(tLeft<=0){tLeft=tTotal;document.getElementById("t-disp").classList.remove("done")}tInt=setInterval(tick,1000);b.textContent="Pauze"}}
   if(b.id==="t-reset"){stopTimer();tLeft=tTotal;const d=document.getElementById("t-disp");d.textContent=fmt(tLeft);d.classList.remove("done");document.getElementById("t-go").textContent="Start"}
 });
-dlg.addEventListener("close",stopTimer);
+dlg.addEventListener("close",()=>{stopTimer();stopD3()});
+document.addEventListener("click",ev=>{const b=ev.target.closest("[data-d3]");if(!b)return;const on=b.dataset.d3==="1";
+  document.querySelectorAll("[data-d3]").forEach(x=>x.setAttribute("aria-pressed",String((x.dataset.d3==="1")===on)));
+  const box=document.getElementById("d3box"),f=document.getElementById("d3field");if(f)f.hidden=on;
+  if(on){if(box){box.hidden=false;stopD3();d3Stop=Duel3D.mount(box,reduceMotion,()=>paused)}}else{stopD3();if(box)box.hidden=true}});
 
 /* wisseltijd */
 function syncWissel(){const i=document.getElementById("wissel");if(i&&document.activeElement!==i)i.value=WISSEL}
@@ -1302,6 +1338,309 @@ initSel();renderFilters();renderGrid();renderBar();initLib();
 </script>
 
 
+
+<script>
+/* 3D-animatie van Duel: tekent een floorballzaal in perspectief, puur als functie van de tijd */
+window.Duel3D=(function(){
+  const clamp01=x=>Math.max(0,Math.min(1,x));
+  function build(stage){
+    const kit={W:1920,H:1080,stage,seg:(t,a,b)=>clamp01((t-a)/(b-a)),lerp:(a,b,k)=>a+(b-a)*k,eo:x=>1-(1-x)*(1-x),
+      eio:x=>x<.5?2*x*x:1-2*(1-x)*(1-x),
+      h(s){const d=document.createElement("div");d.innerHTML=s;return d.firstElementChild},
+      TextFx:{fadeFromRight(el,t,t0){const k=clamp01((t-t0)/.5),e=1-(1-k)*(1-k);el.style.opacity=e;el.style.transform="translateX("+((1-e)*30).toFixed(1)+"px)"}},
+      scene(id,o){SC=o}};
+    let W,SC;
+// The hall: a floorball rink (40 x 20 m, rounded boards) drawn in true perspective by a small orbiting camera.
+W = {
+  // Camera orbiting a target point; P() turns a point in metres into stage pixels.
+  cam(kit, o) {
+    const F = o.F || 1500, cp = Math.cos(o.pitch), sp = Math.sin(o.pitch), cy = Math.cos(o.yaw), sy = Math.sin(o.yaw);
+    const px = o.tx + o.d * cp * cy, py = o.ty + o.d * cp * sy, pz = o.d * sp;
+    const fx = -cp * cy, fy = -cp * sy, fz = -sp;
+    let rx = fy, ry = -fx; const rl = Math.hypot(rx, ry) || 1; rx /= rl; ry /= rl;
+    const ux = ry * fz, uy = -rx * fz, uz = rx * fy - ry * fx;
+    const CX = kit.W / 2, CY = kit.H / 2 + (o.oy || 0);
+    return {
+      sp,
+      P(x, y, z) {
+        const vx = x - px, vy = y - py, vz = z - pz;
+        const zc = Math.max(vx * fx + vy * fy + vz * fz, 0.5);
+        const s = F / zc;
+        return [CX + (vx * rx + vy * ry) * s, CY - (vx * ux + vy * uy + vz * uz) * s, zc, s];
+      },
+    };
+  },
+  path(cam, pts, close) {
+    let s = '';
+    for (let i = 0; i < pts.length; i++) { const q = cam.P(pts[i][0], pts[i][1], pts[i][2]); s += (i ? 'L' : 'M') + q[0].toFixed(1) + ' ' + q[1].toFixed(1); }
+    return s + (close ? 'Z' : '');
+  },
+  // Outline of the boards: a rounded rectangle at height z.
+  outline(z) {
+    const L = 20, B = 10, r = 2.5, pts = [], cs = [[L - r, B - r, 0], [-L + r, B - r, 90], [-L + r, -B + r, 180], [L - r, -B + r, 270]];
+    for (const c of cs) for (let k = 0; k <= 6; k++) { const a = (c[2] + k * 15) * Math.PI / 180; pts.push([c[0] + r * Math.cos(a), c[1] + r * Math.sin(a), z]); }
+    return pts;
+  },
+  ring(cx, cy, r, z, n) { const p = []; for (let k = 0; k < n; k++) { const a = k / n * Math.PI * 2; p.push([cx + r * Math.cos(a), cy + r * Math.sin(a), z]); } return p; },
+  // The rink with its boards, lines, goals and the hall lamps above. render(cam) redraws it for any camera.
+  rink(kit, cls) {
+    const names = ['floor', 'wallfar', 'lines', 'goals', 'wallnear', 'cap'];
+    const markup = '<g class="' + cls + '">' +
+      '<path class="' + cls + '-floor" style="fill:var(--floor)"/>' +
+      '<path class="' + cls + '-wallfar" style="fill:var(--boardshade)"/>' +
+      '<path class="' + cls + '-lines" style="fill:none;stroke:var(--paint);stroke-width:3;stroke-linejoin:round"/>' +
+      '<path class="' + cls + '-goals" style="fill:none;stroke:var(--accent);stroke-width:5;stroke-linejoin:round;stroke-linecap:round"/>' +
+      '<path class="' + cls + '-wallnear" style="fill:var(--board);opacity:.82"/>' +
+      '<path class="' + cls + '-cap" style="fill:none;stroke:var(--second);stroke-width:2;opacity:.8"/></g>';
+    const el = {};
+    const lo = W.outline(0), hi = W.outline(0.5);
+    return {
+      markup,
+      bind(root) { for (const n of names) el[n] = root.querySelector('.' + cls + '-' + n); },
+      render(cam) {
+        el.floor.setAttribute('d', W.path(cam, lo, true));
+        // Board segments: the ones facing the camera are the near wall, drawn over the floor in front.
+        let far = '', near = '';
+        const c = cam.P(0, 0, 0);
+        for (let i = 0; i < lo.length; i++) {
+          const j = (i + 1) % lo.length, a = lo[i], b = lo[j];
+          const quad = W.path(cam, [a, b, hi[j], hi[i]], true);
+          const mid = cam.P((a[0] + b[0]) / 2, (a[1] + b[1]) / 2, 0);
+          const qa = cam.P(a[0], a[1], 0), qb = cam.P(b[0], b[1], 0);
+          if (qa[2] < 2 || qb[2] < 2) continue;   // a board segment right at or behind the lens is left out
+          if (mid[2] < c[2]) near += quad; else far += quad;
+        }
+        el.wallfar.setAttribute('d', far);
+        el.wallnear.setAttribute('d', near);
+        el.cap.setAttribute('d', W.path(cam, hi, true));
+        let ln = W.path(cam, [[0, -10, 0], [0, 10, 0]]) + W.path(cam, W.ring(0, 0, 3, 0, 32), true) + W.path(cam, W.ring(0, 0, 0.15, 0, 8), true);
+        for (const sg of [1, -1]) {
+          ln += W.path(cam, [[sg * 13.15, -2.5, 0], [sg * 17.15, -2.5, 0], [sg * 17.15, 2.5, 0], [sg * 13.15, 2.5, 0]], true);
+          ln += W.path(cam, [[sg * 16.5, -0.5, 0], [sg * 16.5 - sg * 1, -0.5, 0], [sg * 16.5 - sg * 1, 0.5, 0], [sg * 16.5, 0.5, 0]]);
+          for (const fy of [-6.5, 6.5]) ln += W.path(cam, [[sg * 14 - 0.15, fy, 0], [sg * 14 + 0.15, fy, 0]]);
+        }
+        el.lines.setAttribute('d', ln);
+        let g = '';
+        for (const sg of [1, -1]) {
+          const x = sg * 16.5, bx = x + sg * 0.65;
+          g += W.path(cam, [[x, -0.8, 0], [x, -0.8, 1.15], [x, 0.8, 1.15], [x, 0.8, 0]]);
+          g += W.path(cam, [[x, -0.8, 1.15], [bx, -0.8, 0.3], [bx, -0.8, 0], [bx, 0.8, 0], [bx, 0.8, 0.3], [x, 0.8, 1.15]]);
+        }
+        el.goals.setAttribute('d', g);
+      },
+    };
+  },
+  // Painter's order: farthest first.
+  sortInto(parent, items) { items.sort((a, b) => b.d - a.d); for (const it of items) parent.appendChild(it.el); },
+};
+
+Object.assign(W, {
+  // A floorball: a pale ball with holes, its shadow on the floor, a lit cap on top.
+  ball(cls) {
+    return {
+      markup: '<g class="' + cls + '"><ellipse style="fill:rgba(0,0,0,.35)"/><circle style="fill:var(--second);stroke:color-mix(in srgb, var(--second) 60%, var(--ground));stroke-width:1.5"/><circle style="fill:color-mix(in srgb, var(--ground) 45%, var(--second))"/><circle style="fill:color-mix(in srgb, var(--ground) 45%, var(--second))"/></g>',
+      bind(g) { this.g = g; [this.sh, this.b, this.h1, this.h2] = g.children; },
+      render(cam, x, y, z) {
+        const f = cam.P(x, y, 0), q = cam.P(x, y, 0.11 + (z || 0)), r = Math.max(0.11 * q[3], 3);
+        this.sh.setAttribute('cx', f[0].toFixed(1)); this.sh.setAttribute('cy', f[1].toFixed(1));
+        this.sh.setAttribute('rx', (r * 1.1).toFixed(1)); this.sh.setAttribute('ry', (r * 1.1 * cam.sp).toFixed(1));
+        this.b.setAttribute('cx', q[0].toFixed(1)); this.b.setAttribute('cy', q[1].toFixed(1)); this.b.setAttribute('r', r.toFixed(1));
+        this.h1.setAttribute('cx', (q[0] - r * 0.35).toFixed(1)); this.h1.setAttribute('cy', (q[1] + r * 0.2).toFixed(1)); this.h1.setAttribute('r', (r * 0.16).toFixed(1));
+        this.h2.setAttribute('cx', (q[0] + r * 0.3).toFixed(1)); this.h2.setAttribute('cy', (q[1] - r * 0.25).toFixed(1)); this.h2.setAttribute('r', (r * 0.16).toFixed(1));
+        return f[2];
+      },
+    };
+  },
+});
+
+const { seg, eo, eio, lerp, TextFx } = kit;
+Object.assign(W, {
+  // A faceless floorball player in 3D, in an athletic stance: shoes, socks in the team colour, bent knees,
+  // shorts, a shirt with shoulders, neck and head, both hands on the stick and a hooked blade on the floor.
+  // Feet stand at (x, y, 0); dir is where the chest faces; the blade sits on the left (stick side).
+  player(cls, col) {
+    const sk = 'fill:none;stroke-linecap:round;stroke-linejoin:round;stroke:';
+    return {
+      markup: '<g class="' + cls + '"><ellipse style="fill:rgba(0,0,0,.38)"/>' +
+        '<path style="' + sk + 'color-mix(in srgb, var(--second) 88%, var(--ground))"/>' +
+        '<path style="' + sk + col + '"/>' +
+        '<path style="' + sk + 'var(--skin)"/>' +
+        '<path style="' + sk + 'var(--shorts);fill:var(--shorts)"/>' +
+        '<path style="' + sk + col + ';fill:' + col + '"/>' +
+        '<path style="' + sk + 'color-mix(in srgb, ' + col + ' 55%, var(--second));opacity:.6"/>' +
+        '<path style="' + sk + 'var(--skin)"/>' +
+        '<circle style="fill:var(--skin)"/><path style="fill:color-mix(in srgb, var(--ground) 75%, var(--accent))"/>' +
+        '<path style="' + sk + 'var(--stick)"/>' +
+        '<path style="' + sk + 'color-mix(in srgb, ' + col + ' 45%, var(--second))"/>' +
+        '<path style="' + sk + col + '"/>' +
+        '<path style="' + sk + 'var(--skin)"/>' +
+        '<path style="' + sk + 'color-mix(in srgb, var(--ground) 60%, var(--second))"/></g>',
+      bind(g) { this.g = g; [this.sh, this.shoes, this.socks, this.thighs, this.pants, this.body, this.lit, this.neck, this.head, this.hair, this.stick, this.blade, this.upper, this.fore, this.grip] = g.children; },
+      render(cam, st) {
+        const { x, y, dir } = st, fx = Math.cos(dir), fy = Math.sin(dir), lx = -fy, ly = fx, ln = st.lean, amp = st.amp;
+        // A point relative to the player: f metres forward, l metres to the left, z up.
+        const at = (f, l, z) => [x + fx * f + lx * l, y + fy * f + ly * l, z];
+        const foot = cam.P(x, y, 0), s = cam.P(x, y, 1)[3], wd = (el, m, min) => { el.style.strokeWidth = Math.max(m * s, min || 1).toFixed(1); };
+        this.sh.setAttribute('cx', foot[0].toFixed(1)); this.sh.setAttribute('cy', foot[1].toFixed(1));
+        this.sh.setAttribute('rx', (0.55 * foot[3]).toFixed(1)); this.sh.setAttribute('ry', (0.55 * foot[3] * cam.sp).toFixed(1));
+        // Legs: a running gait with a lifted swing foot and knees always bent.
+        let shoes = '', socks = '', thighs = '';
+        for (const side of [1, -1]) {
+          const ph = st.run + (side > 0 ? 0 : Math.PI), fw = 0.3 * amp * Math.sin(ph), up = 0.12 * amp * Math.max(0, Math.cos(ph));
+          const hip = at(ln * 0.04, 0.1 * side, 0.82), ft = at(fw, 0.14 * side, up);
+          const knee = at((ln * 0.04 + fw) / 2 + 0.16 + 0.06 * amp * Math.max(0, Math.cos(ph)), 0.12 * side, 0.45 + up * 0.6);
+          const ankle = [ft[0], ft[1], ft[2] + 0.08];
+          thighs += W.path(cam, [hip, knee]);
+          socks += W.path(cam, [knee, ankle]);
+          shoes += W.path(cam, [at(fw - 0.06, 0.14 * side, up + 0.04), at(fw + 0.17, 0.14 * side, up + 0.03)]);
+        }
+        this.thighs.setAttribute('d', thighs); wd(this.thighs, 0.15, 2);
+        this.socks.setAttribute('d', socks); wd(this.socks, 0.12, 2);
+        this.shoes.setAttribute('d', shoes); wd(this.shoes, 0.1, 2);
+        // Shorts and shirt as solid shapes with rounded edges, leaning into the play.
+        const lean = (z) => ln * 0.34 * (z - 0.82) / 0.6;
+        this.pants.setAttribute('d', W.path(cam, [at(lean(0.97), 0.17, 0.97), at(lean(0.97), -0.17, 0.97), at(0.04, -0.19, 0.7), at(0.04, 0.19, 0.7)], true)); wd(this.pants, 0.1, 2);
+        const sL = at(lean(1.43), 0.21, 1.43), sR = at(lean(1.43), -0.21, 1.43);
+        this.body.setAttribute('d', W.path(cam, [at(lean(0.95), 0.16, 0.95), at(lean(0.95), -0.16, 0.95), sR, sL], true)); wd(this.body, 0.16, 2);
+        this.lit.setAttribute('d', W.path(cam, [at(lean(1.0), 0.15, 1.0), at(lean(1.38), 0.19, 1.38)])); wd(this.lit, 0.06, 1);
+        this.neck.setAttribute('d', W.path(cam, [at(lean(1.45), 0, 1.45), at(lean(1.56), 0, 1.56)])); wd(this.neck, 0.1, 2);
+        const h = cam.P.apply(null, at(lean(1.68) + 0.02, 0, 1.68)), r = 0.12 * h[3];
+        this.head.setAttribute('cx', h[0].toFixed(1)); this.head.setAttribute('cy', h[1].toFixed(1)); this.head.setAttribute('r', r.toFixed(1));
+        this.hair.setAttribute('d', 'M' + (h[0] - r * 1.02).toFixed(1) + ' ' + (h[1] - r * 0.05).toFixed(1) + ' A' + r.toFixed(1) + ' ' + r.toFixed(1) + ' 0 0 1 ' + (h[0] + r * 1.02).toFixed(1) + ' ' + (h[1] - r * 0.05).toFixed(1) + ' Q' + h[0].toFixed(1) + ' ' + (h[1] - r * 0.45).toFixed(1) + ' ' + (h[0] - r * 1.02).toFixed(1) + ' ' + (h[1] - r * 0.05).toFixed(1) + ' Z');
+        // Stick: top hand at the waist in front, bottom hand a third of the way down, blade flat on the floor.
+        const bp = [st.bx, st.by, 0.03], top = at(0.26 + ln * 0.22, -0.04, 0.9);
+        const low = [top[0] + (bp[0] - top[0]) * 0.36, top[1] + (bp[1] - top[1]) * 0.36, top[2] + (bp[2] - top[2]) * 0.36];
+        this.stick.setAttribute('d', W.path(cam, [[top[0] - (bp[0] - top[0]) * 0.08, top[1] - (bp[1] - top[1]) * 0.08, top[2] + 0.07], bp])); wd(this.stick, 0.045, 2);
+        const bx = bp[0] - lx * 0.27, by = bp[1] - ly * 0.27, a = cam.P(bp[0], bp[1], 0.03), b = cam.P(bx, by, 0.03), c = cam.P((bp[0] + bx) / 2 + fx * 0.07, (bp[1] + by) / 2 + fy * 0.07, 0.03);
+        this.blade.setAttribute('d', 'M' + a[0].toFixed(1) + ' ' + a[1].toFixed(1) + ' Q' + c[0].toFixed(1) + ' ' + c[1].toFixed(1) + ' ' + b[0].toFixed(1) + ' ' + b[1].toFixed(1)); wd(this.blade, 0.09, 3);
+        this.grip.setAttribute('d', W.path(cam, [[top[0] - (bp[0] - top[0]) * 0.08, top[1] - (bp[1] - top[1]) * 0.08, top[2] + 0.07], top])); wd(this.grip, 0.055, 2);
+        // Arms: sleeve to the elbow, forearm to the hand on the stick.
+        let up = '', fo = '';
+        for (const [sh, hand, side] of [[sL, low, 1], [sR, top, -1]]) {
+          const el = [(sh[0] + hand[0]) / 2 + lx * 0.1 * side, (sh[1] + hand[1]) / 2 + ly * 0.1 * side, (sh[2] + hand[2]) / 2 - 0.08];
+          const sleeve = [sh[0] + (el[0] - sh[0]) * 0.6, sh[1] + (el[1] - sh[1]) * 0.6, sh[2] + (el[2] - sh[2]) * 0.6];
+          up += W.path(cam, [sh, sleeve]);
+          fo += W.path(cam, [sleeve, el, hand]);
+        }
+        this.upper.setAttribute('d', up); wd(this.upper, 0.11, 2);
+        this.fore.setAttribute('d', fo); wd(this.fore, 0.075, 1.5);
+        // Seen from behind, the stick and arms go behind the body; seen from the front, over it.
+        const away = cam.P.apply(null, at(0.3, 0, 1.2))[2] > cam.P.apply(null, at(-0.3, 0, 1.2))[2];
+        for (const el of [this.stick, this.blade, this.upper, this.fore, this.grip]) { if (away) this.g.insertBefore(el, this.body); else this.g.appendChild(el); }
+        return foot[2];
+      },
+    };
+  },
+});
+const TW = 5.5, TS = 11.0, TE = 16;
+const L2 = (a, b, k) => [a[0] + (b[0] - a[0]) * k, a[1] + (b[1] - a[1]) * k];
+// Each duo keeps to its own part of the hall (two rows), so no two players ever run through each other.
+const DUOS = [{ c: [-12, -5], ph: 0.3, P: 1.3 }, { c: [-6, 5], ph: 2.1, P: 1.5, steal: true }, { c: [0, -5], ph: 4.0, P: 1.25 }, { c: [12, -5], ph: 1.2, P: 1.45 }, { c: [6, 5], ph: 5.0, P: 1.35 }];
+DUOS.forEach((d) => { d.off = (((0.15 * d.P - TW) % (2 * d.P)) + 2 * d.P) % (2 * d.P); });
+// Passing: the duo runs a loop through the hall side by side, about 4.6 m apart, both facing the way they run.
+const PW = 0.85;
+function spelPass(d, t) {
+  const q = PW * t + d.ph, c = [d.c[0] + 2.4 * Math.cos(q), d.c[1] + 1.2 * Math.sin(q)];
+  const v = Math.atan2(1.2 * Math.cos(q), -2.4 * Math.sin(q)), pl = v + Math.PI / 2, fx = Math.cos(v), fy = Math.sin(v);
+  const ox = Math.cos(pl) * 2.0, oy = Math.sin(pl) * 2.0, lead = 0.4 * Math.sin(1.7 * t + d.ph);
+  return { c, v, pl, A: [c[0] + ox + fx * lead, c[1] + oy + fy * lead], B: [c[0] - ox - fx * lead, c[1] - oy - fy * lead] };
+}
+function spelCenter(d, t) { const p = spelPass(d, TW).c, k = Math.max(0, t - TW); return [p[0] + 0.25 * Math.sin(0.5 * k + d.ph), p[1] + 0.2 * Math.sin(0.4 * k + d.ph * 1.3)]; }
+const angLerp = (a, b, k) => { const d = Math.atan2(Math.sin(b - a), Math.cos(b - a)); return a + d * k; };
+function spelDuo(d, i, t) {
+  const e = eio(seg(t, TW, TW + 0.6)), ps = spelPass(d, Math.min(t, TW + 0.6)), c = spelCenter(d, t);
+  const a = spelPass(d, TW).pl + 0.8 * Math.sin(1.3 * Math.max(0, t - TW)) * eo(seg(t, TW, TW + 0.8));
+  const ca = Math.cos(a), sa = Math.sin(a);
+  const A = L2(ps.A, [c[0] + ca * 0.5, c[1] + sa * 0.5], e), B = L2(ps.B, [c[0] - ca * 0.5, c[1] - sa * 0.5], e);
+  const w = d.steal ? eio(seg(t, TS, TS + 0.5)) : 0, hA = e * (1 - w), hB = e * w;
+  const fA = Math.atan2(B[1] - A[1], B[0] - A[0]) + Math.PI * hA, fB = Math.atan2(A[1] - B[1], A[0] - B[0]) + Math.PI * hB;
+  const dA = angLerp(ps.v - 0.45, fA, e), dB = angLerp(ps.v + 0.45, fB, e);
+  const sway = 0.15 * Math.sin(2.4 * t + i) * e, bd = lerp(1.0, 0.6, e);
+  const blade = (p, dir) => { const fx = Math.cos(dir), fy = Math.sin(dir); return [p[0] + fx * bd - fy * (0.35 + sway), p[1] + fy * bd + fx * (0.35 + sway)]; };
+  let bA = blade(A, dA), bB = blade(B, dB), ball;
+  if (t < TW) {
+    const u = (t + d.off) / d.P, n = Math.floor(u), f = u - n, even = ((n % 2) + 2) % 2 === 0;
+    const from = even ? bA : bB, to = even ? bB : bA;
+    ball = f < 0.3 ? from : L2(from, to, (f - 0.3) / 0.7);
+  } else ball = L2(bA, bB, w);
+  const reach = (p, b, cw) => { const dx = p[0] - ball[0], dy = p[1] - ball[1], l = Math.hypot(dx, dy) || 1; return L2(b, [ball[0] + dx / l * 0.28, ball[1] + dy / l * 0.28], cw * (0.6 + 0.3 * Math.sin(3.1 * t + i * 1.7))); };
+  bA = reach(A, bA, e * w); bB = reach(B, bB, e * (1 - w));
+  return { A, B, dA, dB, bA, bB, ball, e, c };
+}
+kit.scene('spel', {
+  init(kit) {
+    this.rink = W.rink(kit, 'spel-rink');
+    this.duos = DUOS.map((d, i) => ({ a: W.player('spel-pa' + i, 'var(--accent)'), b: W.player('spel-pb' + i, 'var(--teamb)'), ball: W.ball('spel-ball' + i) }));
+    const people = this.duos.map((o) => o.a.markup + o.b.markup + o.ball.markup).join('');
+    const whistle = '<svg class="d3-art spel-wh" viewBox="0 0 1920 1080"><g class="spel-rings" style="fill:none;stroke:var(--accent);stroke-width:6"><circle cx="1712" cy="150"/><circle cx="1712" cy="150"/></g>' +
+      '<g class="spel-whistle"><path d="M-16 -60 Q-60 -110 -96 -150" style="fill:none;stroke:var(--main);stroke-width:6;stroke-linecap:round"/><path d="M-70 -30 a46 46 0 1 0 60 -34 h70 a12 12 0 0 0 12 -12 v-16 a12 12 0 0 0 -12 -12 h-96 Q-82 -64 -70 -30 Z" style="fill:var(--second)"/><circle cx="-36" cy="-4" r="18" style="fill:color-mix(in srgb, var(--second) 55%, var(--ground))"/><rect x="40" y="-74" width="34" height="14" rx="4" style="fill:var(--ground)"/><circle cx="-16" cy="-60" r="10" style="fill:none;stroke:var(--main);stroke-width:5"/></g></svg>';
+    kit.stage.append(kit.h('<div class="d3-ground"><div class="d3-air"></div>' +
+      '<svg class="d3-art spel-art" viewBox="0 0 1920 1080">' + this.rink.markup + '<g class="spel-people">' + people + '</g></svg>' +
+      '<div class="d3-edge"></div><div class="d3-calm"></div>' + whistle +
+      '<div class="spel-tag" style="position:absolute;left:0;top:0;padding:10px 22px;border-radius:999px;background:var(--accent);color:var(--ground);font-size:46px;font-weight:700;white-space:nowrap">Bal veroverd</div>' +
+      '<div class="d3-words spel-g1" style="left:110px;top:80px;width:1000px"><p class="d3-eyebrow spel-e1">Stap 1 · 40 seconden</p><h2 class="d3-head spel-h1">Passen in duo\'s</h2><p class="d3-sub spel-s1" style="max-width:880px">Vrij bewegen door het veld en elkaar de bal toespelen</p></div>' +
+      '<div class="d3-words spel-g2" style="left:110px;top:80px;width:1000px"><p class="d3-eyebrow spel-e2">Stap 2 · fluitsignaal · 8 seconden</p><h2 class="d3-head spel-h2">Duel!</h2><p class="d3-sub spel-s2" style="max-width:880px">Wie de bal heeft schermt af met het lichaam, de ander probeert hem te veroveren</p></div>' +
+      '<div class="spel-bar" style="position:absolute;left:110px;bottom:64px;width:820px;padding:18px 22px 14px;border-radius:14px;background:color-mix(in srgb, var(--ground) 86%, transparent)">' +
+        '<div style="position:relative;height:16px;border-radius:8px;overflow:hidden;background:color-mix(in srgb, var(--second) 18%, var(--ground))"><div class="spel-fill" style="position:absolute;left:0;top:0;bottom:0;width:100%;transform-origin:0 50%;background:linear-gradient(90deg, var(--main) 0 78%, var(--accent) 78% 100%)"></div><div style="position:absolute;left:78%;top:0;bottom:0;width:4px;background:var(--ground)"></div></div>' +
+        '<div style="display:flex;margin-top:10px;font-size:40px;white-space:nowrap"><span style="width:78%;color:var(--main)">passen 40 s</span><span style="color:var(--accent)">duel 8 s</span></div></div></div>'));
+    const q = (s) => kit.stage.querySelector(s);
+    this.rink.bind(q('.spel-rink'));
+    this.duos.forEach((o, i) => { o.a.bind(q('.spel-pa' + i)); o.b.bind(q('.spel-pb' + i)); o.ball.bind(q('.spel-ball' + i)); });
+    Object.assign(this, { people: q('.spel-people'), g1: q('.spel-g1'), g2: q('.spel-g2'), e1: q('.spel-e1'), h1: q('.spel-h1'), s1: q('.spel-s1'), e2: q('.spel-e2'), h2: q('.spel-h2'), s2: q('.spel-s2'),
+      fill: q('.spel-fill'), tag: q('.spel-tag'), whistle: q('.spel-whistle'), rings: Array.from(q('.spel-rings').children) });
+    this.c1 = spelCenter(DUOS[1], TW);
+  },
+  render(t, kit) {
+    const k1 = eio(seg(t, 0, TW)), k2 = eio(seg(t, TW + 0.3, TW + 2.4)), k3 = seg(t, TW + 2.4, TE);
+    const cam = W.cam(kit, { yaw: lerp(-0.74, -0.58, k1) + lerp(0, 0.2, k2) + 0.08 * k3, pitch: lerp(0.62, 0.44, k2), d: lerp(45, 16, k2) - 2 * k3,
+      tx: lerp(0, this.c1[0], k2), ty: lerp(0, this.c1[1], k2), oy: lerp(110, 190, k2) });
+    this.rink.render(cam);
+    const items = [];
+    this.duos.forEach((o, i) => {
+      const s = spelDuo(DUOS[i], i, t), amp = lerp(1, 0.55, s.e), lean = 0.12 + 0.3 * s.e;
+      items.push({ el: o.a.g, d: o.a.render(cam, { x: s.A[0], y: s.A[1], dir: s.dA, run: t * 9 + i * 1.3, amp, lean, bx: s.bA[0], by: s.bA[1] }) });
+      items.push({ el: o.b.g, d: o.b.render(cam, { x: s.B[0], y: s.B[1], dir: s.dB, run: t * 9 + i * 1.3 + 1.6, amp, lean, bx: s.bB[0], by: s.bB[1] }) });
+      items.push({ el: o.ball.g, d: o.ball.render(cam, s.ball[0], s.ball[1], 0) });
+      if (i === 1) {
+        const p = cam.P(s.c[0], s.c[1], 2.5);
+        this.tag.style.transform = 'translate(' + p[0].toFixed(1) + 'px,' + p[1].toFixed(1) + 'px) translate(-50%,-100%) scale(' + lerp(0.8, 1, eo(seg(t, TS + 0.2, TS + 0.6))).toFixed(3) + ')';
+        this.tag.style.opacity = eo(seg(t, TS + 0.2, TS + 0.6));
+      }
+    });
+    W.sortInto(this.people, items);
+    // Words: step 1 out before the whistle, step 2 in after it.
+    TextFx.fadeFromRight(this.e1, t, 0.1); TextFx.fadeFromRight(this.h1, t, 0.3); TextFx.fadeFromRight(this.s1, t, 0.9);
+    this.g1.style.opacity = 1 - eo(seg(t, TW - 0.5, TW - 0.1));
+    TextFx.fadeFromRight(this.e2, t, TW + 0.15); TextFx.fadeFromRight(this.h2, t, TW + 0.3); TextFx.fadeFromRight(this.s2, t, TW + 0.9);
+    this.g2.style.opacity = t < TW ? 0 : 1;
+    // Rhythm bar: how far along the round we are.
+    const pr = t < TW ? 0.78 * seg(t, 0, TW) : 0.78 + 0.22 * seg(t, TW, TE);
+    this.fill.style.clipPath = 'inset(0 ' + (100 - 100 * pr).toFixed(2) + '% 0 0)';
+    // The whistle: comes in just before, gives one shake and two rings on the signal.
+    const wi = eo(seg(t, TW - 0.6, TW - 0.1)), sh = Math.sin((t - TW) * 30) * Math.exp(-Math.max(0, t - TW) * 5) * (t > TW ? 8 : 0);
+    this.whistle.setAttribute('transform', 'translate(1712 190) scale(' + (wi * (1 + 0.02 * Math.sin(t * 2.1))).toFixed(3) + ') rotate(' + (sh - 8).toFixed(2) + ')');
+    this.whistle.style.opacity = wi;
+    this.rings.forEach((r, j) => { const k = seg(t, TW + j * 0.25, TW + 1.1 + j * 0.25); r.setAttribute('r', lerp(70, 240, eo(k)).toFixed(1)); r.style.opacity = (k > 0 && k < 1 ? 1 - k : 0).toFixed(3); });
+  },
+});
+    SC.init(kit);return t=>SC.render(t,kit);
+  }
+  const LOOP=17;
+  function mount(box,reduce,isPaused){
+    box.innerHTML='<div class="d3-stage"></div><button type="button" class="d3-play"></button>';
+    const stage=box.firstChild,btn=box.lastChild,draw=build(stage);
+    const fit=()=>{stage.style.transform="scale("+(box.clientWidth/1920)+")"};fit();
+    const ro=new ResizeObserver(fit);ro.observe(box);
+    let run=!reduce&&!isPaused(),t=reduce?12.5:0,last=null,raf=0;
+    const label=()=>{btn.textContent=run?"Pauze":"Afspelen"};label();draw(t);
+    const step=now=>{if(last!==null)t=(t+(now-last)/1000)%LOOP;last=now;draw(Math.min(t,16));raf=requestAnimationFrame(step)};
+    const go=()=>{last=null;cancelAnimationFrame(raf);if(run)raf=requestAnimationFrame(step)};go();
+    btn.addEventListener("click",()=>{run=!run;label();go()});
+    return()=>{cancelAnimationFrame(raf);ro.disconnect();box.innerHTML=""};
+  }
+  return{mount};
+})();
+</script>
 
 <script src="../shared/config.js"></script><script src="../shared/online.js"></script>
 </body></html>
