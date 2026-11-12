@@ -171,7 +171,8 @@ scrollTo(0,0);addEventListener("load",()=>scrollTo(0,0));addEventListener("pages
   }
   function matches(card, id) {
     if (!query.trim()) return true;
-    const hay = norm(card.textContent) + " " + textOf(id);
+    const h = card.querySelector("h3"), ex = typeof EX !== "undefined" && EX.find(e => e.id === id);
+    const hay = norm((ex && ex.title) || (h && h.textContent) || "");
     return norm(query).split(/\s+/).filter(Boolean).every(w => hay.includes(w));
   }
   function passes(id) {
@@ -198,7 +199,7 @@ scrollTo(0,0);addEventListener("load",()=>scrollTo(0,0));addEventListener("pages
     if (!shown) { if (!msg) grid.insertAdjacentHTML("beforebegin", `<p class="note" id="fb-sf-empty"></p>`); }
     else if (msg) msg.remove();
     msg = document.getElementById("fb-sf-empty");
-    if (msg) msg.textContent = query.trim() ? `Niets gevonden voor “${query.trim()}”. Probeer een ander woord, of kies Alles bij de onderdelen.` : "Geen oefeningen met dit aantal sterren. Kies een ander filter.";
+    if (msg) msg.textContent = query.trim() ? `Niets gevonden voor “${query.trim()}”. Probeer een andere naam, of kies Alles bij de onderdelen.` : "Geen oefeningen met dit aantal sterren. Kies een ander filter.";
   }
   document.addEventListener("input", ev => { if (ev.target.id !== "fb-search") return; query = ev.target.value; applyStarFilter(); });
   document.addEventListener("change", ev => {
