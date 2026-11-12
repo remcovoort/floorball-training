@@ -161,13 +161,10 @@ scrollTo(0,0);addEventListener("load",()=>scrollTo(0,0));addEventListener("pages
   }
   function ensureStarFilter() {
     const f = document.getElementById("filters");
-    if (!f) return;
-    if (!f.querySelector("#fb-search")) {
-      const had = document.activeElement && document.activeElement.id === "fb-search";
-      f.insertAdjacentHTML("afterbegin", searchHtml());
-      if (had) { const i = f.querySelector("#fb-search"); i.focus({ preventScroll: true }); i.setSelectionRange(i.value.length, i.value.length); }
-    }
-    if (!f.querySelector("#fb-starfilter")) f.insertAdjacentHTML("beforeend", starFilterHtml());
+    if (!f || f.querySelector(".fb-tools")) return;
+    const had = document.activeElement && document.activeElement.id === "fb-search";
+    f.insertAdjacentHTML("beforeend", `<div class="fb-tools">${searchHtml()}${starFilterHtml()}</div>`);
+    if (had) { const i = f.querySelector("#fb-search"); i.focus({ preventScroll: true }); i.setSelectionRange(i.value.length, i.value.length); }
   }
   function matches(card, id) {
     if (!query.trim()) return true;
@@ -293,7 +290,9 @@ scrollTo(0,0);addEventListener("load",()=>scrollTo(0,0));addEventListener("pages
 .fb-repi[data-empty] summary{cursor:default;list-style:none}
 .fb-repi ul{margin:8px 0 2px;padding-left:18px;display:grid;gap:4px;font-size:15px}
 .fb-s{color:var(--cone,#f2b705)}
-.fb-search{display:inline-flex;align-items:center;gap:6px;flex:1 1 180px;max-width:320px;border:1.5px solid var(--line);background:var(--surface);border-radius:999px;padding:0 6px 0 12px}
+.fb-tools{display:flex;align-items:center;gap:8px;margin-left:auto;flex:1 1 340px;justify-content:flex-end;min-width:0}
+.fb-tools .fb-sf{margin-left:0;flex:none}
+.fb-search{display:inline-flex;align-items:center;gap:6px;flex:1 1 140px;max-width:280px;min-width:0;border:1.5px solid var(--line);background:var(--surface);border-radius:999px;padding:0 6px 0 12px}
 .fb-search:focus-within{border-color:var(--ink)}
 .fb-search-i{color:var(--muted);font-size:18px;line-height:1}
 .fb-search input{font:inherit;font-size:15px;border:none;outline:none;background:none;color:var(--ink);padding:6px 4px;width:100%;min-width:0}
