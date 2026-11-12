@@ -143,9 +143,36 @@ scrollTo(0,0);addEventListener("load",()=>scrollTo(0,0));addEventListener("pages
     const opts = [["all", "Alle"], ["5", "★★★★★"], ["4", "★★★★ en meer"], ["3", "★★★ en meer"], ["2", "★★ en meer"], ["low", "Onder ★★★"], ["none", "Nog geen score"]];
     return `<label class="fb-sf">Sterren <select id="fb-starfilter" aria-label="Filter op aantal sterren">${opts.map(([v, l]) => `<option value="${v}"${v === starMin ? " selected" : ""}>${l}</option>`).join("")}</select></label>`;
   }
+  /* zoeken: titel, doel, uitleg, variaties … alles wat bij de oefening staat */
+  let query = "";
+  const norm = t => String(t).toLowerCase().normalize("NFD").replace(/[\u0300-\u036f]/g, "");
+  const strip = t => String(t).replace(/<[^>]*>/g, " ");
+  const textIdx = {};
+  function textOf(id) {
+    if (textIdx[id] != null) return textIdx[id];
+    let t = "";
+    const ex = typeof EX !== "undefined" && EX.find(e => e.id === id);
+    const walk = v => { if (v == null) return; if (typeof v === "string") t += " " + strip(v); else if (Array.isArray(v)) v.forEach(walk); else if (typeof v === "object") Object.entries(v).forEach(([k, x]) => { if (k !== "fig" && k !== "anim") walk(x); }); };
+    if (ex) walk(ex);
+    return (textIdx[id] = norm(t));
+  }
+  function searchHtml() {
+    return `<label class="fb-search"><span class="fb-search-i" aria-hidden="true">⌕</span><input id="fb-search" type="search" placeholder="Zoek oefening" aria-label="Zoek oefening" autocomplete="off" value="${esc(query)}"></label>`;
+  }
   function ensureStarFilter() {
     const f = document.getElementById("filters");
-    if (f && !f.querySelector("#fb-starfilter")) f.insertAdjacentHTML("beforeend", starFilterHtml());
+    if (!f) return;
+    if (!f.querySelector("#fb-search")) {
+      const had = document.activeElement && document.activeElement.id === "fb-search";
+      f.insertAdjacentHTML("afterbegin", searchHtml());
+      if (had) { const i = f.querySelector("#fb-search"); i.focus({ preventScroll: true }); i.setSelectionRange(i.value.length, i.value.length); }
+    }
+    if (!f.querySelector("#fb-starfilter")) f.insertAdjacentHTML("beforeend", starFilterHtml());
+  }
+  function matches(card, id) {
+    if (!query.trim()) return true;
+    const hay = norm(card.textContent) + " " + textOf(id);
+    return norm(query).split(/\s+/).filter(Boolean).every(w => hay.includes(w));
   }
   function passes(id) {
     if (starMin === "all") return true;
@@ -159,7 +186,7 @@ scrollTo(0,0);addEventListener("load",()=>scrollTo(0,0));addEventListener("pages
     const grid = document.getElementById("grid"); if (!grid) return;
     let shown = 0;
     grid.querySelectorAll("article.card").forEach(card => {
-      const b = card.querySelector("[data-open]"); const ok = !b || passes(b.dataset.open);
+      const b = card.querySelector("[data-open]"); const ok = !b || (passes(b.dataset.open) && matches(card, b.dataset.open));
       card.style.display = ok ? "" : "none"; if (ok) shown++;
     });
     grid.querySelectorAll(".grid-h").forEach(h => {
@@ -168,9 +195,12 @@ scrollTo(0,0);addEventListener("load",()=>scrollTo(0,0));addEventListener("pages
       h.style.display = any ? "" : "none";
     });
     let msg = document.getElementById("fb-sf-empty");
-    if (!shown) { if (!msg) grid.insertAdjacentHTML("beforebegin", `<p class="note" id="fb-sf-empty">Geen oefeningen met dit aantal sterren. Kies een ander filter.</p>`); }
+    if (!shown) { if (!msg) grid.insertAdjacentHTML("beforebegin", `<p class="note" id="fb-sf-empty"></p>`); }
     else if (msg) msg.remove();
+    msg = document.getElementById("fb-sf-empty");
+    if (msg) msg.textContent = query.trim() ? `Niets gevonden voor “${query.trim()}”. Probeer een ander woord, of kies Alles bij de onderdelen.` : "Geen oefeningen met dit aantal sterren. Kies een ander filter.";
   }
+  document.addEventListener("input", ev => { if (ev.target.id !== "fb-search") return; query = ev.target.value; applyStarFilter(); });
   document.addEventListener("change", ev => {
     if (ev.target.id !== "fb-starfilter") return;
     starMin = ev.target.value; ls.set("fb-starfilter-" + PROGRAM, starMin); applyStarFilter();
@@ -183,10 +213,6 @@ scrollTo(0,0);addEventListener("load",()=>scrollTo(0,0));addEventListener("pages
       const act = card.querySelector(".actions");
       act.insertAdjacentHTML("beforebegin", widget(b.dataset.open));
     });
-    const dlg = document.getElementById("dlg"), body = document.getElementById("dlg-body");
-    if (dlg && body && dlg.dataset.id && !body.querySelector(".fb-rate")) {
-      body.insertAdjacentHTML("afterbegin", `<div class="fb-dlg-rate"><h4>Wat vind je van deze oefening?</h4>${widget(dlg.dataset.id)}</div>`);
-    }
     applyStarFilter();
   }
 
@@ -194,11 +220,11 @@ scrollTo(0,0);addEventListener("load",()=>scrollTo(0,0));addEventListener("pages
   document.addEventListener("click", ev => {
     const star = ev.target.closest("[data-rate]");
     if (star) {
-      const id = star.dataset.ex, n = +star.dataset.rate, inDlg = !!star.closest("#dlg");
+      const id = star.dataset.ex, n = +star.dataset.rate;
       mine[id] = n; ls.set(MINE_KEY, mine);
       openFb.add(id); sentFb.delete(id);
       refreshAll();
-      const ta = document.querySelector((inDlg ? "#dlg-body" : "#grid") + ` [data-fbform="${id}"] textarea`); if (ta) ta.focus({ preventScroll: true });
+      const ta = document.querySelector(`#grid [data-fbform="${id}"] textarea`); if (ta) ta.focus({ preventScroll: true });
       enqueue({ fn: "rate", body: { p_program: PROGRAM, p_exercise: id, p_device: DEVICE, p_score: n } }); setTimeout(loadStats, 1200);
       return;
     }
@@ -266,12 +292,21 @@ scrollTo(0,0);addEventListener("load",()=>scrollTo(0,0));addEventListener("pages
 .fb-repi[data-empty] summary{cursor:default;list-style:none}
 .fb-repi ul{margin:8px 0 2px;padding-left:18px;display:grid;gap:4px;font-size:15px}
 .fb-s{color:var(--cone,#f2b705)}
-@media print{.fb-form,.fb-rate,.fb-dlg-rate,.fb-home{display:none!important}}`;
+.fb-search{display:inline-flex;align-items:center;gap:6px;flex:1 1 180px;max-width:320px;border:1.5px solid var(--line);background:var(--surface);border-radius:999px;padding:0 6px 0 12px}
+.fb-search:focus-within{border-color:var(--ink)}
+.fb-search-i{color:var(--muted);font-size:18px;line-height:1}
+.fb-search input{font:inherit;font-size:15px;border:none;outline:none;background:none;color:var(--ink);padding:6px 4px;width:100%;min-width:0}
+header.fb-has-logo{position:relative}
+header.fb-has-logo>:not(.fb-logo-a):not(.fb-home){padding-right:clamp(64px,15vw,110px);text-align:left}
+.fb-logo-a{position:absolute;top:18px;right:0}
+.fb-logo{display:block;width:auto;height:clamp(84px,19vw,130px)}
+@media print{.fb-form,.fb-rate,.fb-dlg-rate,.fb-home,.fb-search{display:none!important}.fb-logo{height:70px}}`;
   const st = document.createElement("style"); st.textContent = css; document.head.appendChild(st);
 
   function start() {
     const head = document.querySelector("header");
     if (HOSTED && head && !head.querySelector(".fb-home")) head.insertAdjacentHTML("afterbegin", `<a class="fb-home" href="../">← Terug naar startpagina</a>`);
+    if (HOSTED && head && !head.querySelector(".fb-logo")) { head.classList.add("fb-has-logo"); head.insertAdjacentHTML("afterbegin", `<a href="../" class="fb-logo-a" aria-label="Naar de startpagina"><img class="fb-logo" src="../icons/ufc-logo.png" alt="UFC Utrecht" width="155" height="224"></a>`); }
     decorate();
     const mo = new MutationObserver(decorate);
     ["grid", "dlg-body", "filters"].forEach(id => { const el = document.getElementById(id); if (el) mo.observe(el, { childList: true }); });
