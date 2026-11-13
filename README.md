@@ -27,3 +27,7 @@ Een nieuw programma toevoegen: maak een map met de pagina en zet een regel bij `
 - `shared/shim.js`: pdf opslaan in de browser.
 - `sw.js` en `manifest.webmanifest`: de app werkt offline en kan op het beginscherm.
 - Bewaarde trainingen staan in de browser van de gebruiker, niet online.
+
+## Meebouwen
+
+Wijzigingen gaan via een pull request naar `main`; `main` zelf is beschermd. De werkafspraken (ook voor Claude) staan in `CLAUDE.md`.
