@@ -264,7 +264,7 @@ svg.hall{width:100%;height:auto;display:block}
     <a class="fb-home" href="../">← Terug naar startpagina</a>
     <div class="eyebrow">O10 · basisschool · groep 3–8</div>
     <h1>Floorball O10 training</h1>
-    <p class="lead">Tweeëndertig oefeningen met opstelling, uitleg en variaties. Tik op + In training om oefeningen te kiezen en pas per oefening de tijd aan. Kies per oefening het niveau en zet de timer aan.</p>
+    <p class="lead">Tweeëndertig oefeningen met opstelling, uitleg en variaties. Tik op + In de training om oefeningen te kiezen en pas per oefening de tijd aan. Kies per oefening het niveau en zet de timer aan.</p>
     <button type="button" class="linkbtn" id="open-afs">Afspraken vooraf: veilig spelen met de stick</button>
   </header>
 
@@ -1062,17 +1062,17 @@ const SLOTS_OLD=[
   {k:"partij",label:"Partij",cats:["Spel"]}
 ];
 const LVL=[["makkelijker","Makkelijker"],["basis","Basis"],["moeilijker","Moeilijker"]];
-const C={"key": "fb-sel", "oldKey": "fb-les2", "unit": "training", "Unit": "Training", "title": "Mijn training", "inLabel": "In training", "btnLabel": "Training", "people": "kinderen", "libName": "Training", "hallWord": "zaalindeling", "extra": "Reken 10 minuten extra voor uitleg en afsluiten."};
+const C={"key": "fb-sel", "oldKey": "fb-les2", "unit": "training", "Unit": "Training", "title": "Mijn training", "inLabel": "In de training", "btnLabel": "Training", "people": "kinderen", "libName": "Training", "hallWord": "zaalindeling", "extra": "Reken 10 minuten extra voor uitleg en afsluiten."};
 /* Losse gymzaal-app (gymzaal/): dezelfde oefeningen, maar met het woord "gymles" in plaats van "O10"/"training". */
 if(window.FB_APP){
-  Object.assign(C,{unit:"gymles",Unit:"Gymles",title:"Mijn gymles",inLabel:"In gymles",btnLabel:"Gymles"});
+  Object.assign(C,{unit:"gymles",Unit:"Gymles",title:"Mijn gymles",inLabel:"In de gymles",btnLabel:"Gymles"});
   document.title="Floorball in de gymzaal";
   const set=(sel,t)=>{const el=document.querySelector(sel);if(el)el.textContent=t};
   set("header .eyebrow","Gymles · basisschool · groep 3–8");
   set("header h1","Floorball in de gymzaal");
   set("#open-mat","Gymles");set("#mat-title","Mijn gymles");
   const num=document.querySelector("#mat-title")&&document.querySelector("#mat-title").previousElementSibling;if(num)num.textContent="Gymlesoverzicht";
-  document.querySelectorAll("header .lead, .note").forEach(el=>{el.innerHTML=el.innerHTML.replace("In training","In gymles").replace("elke training","elke gymles")});
+  document.querySelectorAll("header .lead, .note").forEach(el=>{el.innerHTML=el.innerHTML.replace("In de training","In de gymles").replace("elke training","elke gymles")});
 }
 const PH_ORD={warm:0,kern:1,partij:2};
 const minClamp=v=>Math.max(1,Math.min(90,Math.round(Number(v))||1));
@@ -1237,7 +1237,7 @@ function openEx(id){
       <div class="box easy"><h4>Makkelijker</h4><ul>${e.makkelijker.map(x=>`<li>${x}</li>`).join("")}</ul></div>
       <div class="box hard"><h4>Moeilijker</h4><ul>${e.moeilijker.map(x=>`<li>${x}</li>`).join("")}</ul></div>
     </div>
-    <div class="actions"><button type="button" class="btn ${inLes?"added":""}" data-toggle="${e.id}" aria-pressed="${inLes}">${inLes?`✓ ${C.inLabel}`:`+ Voeg toe aan ${C.unit}`}</button>${inLes?tStep(sl):""}</div>`;
+    <div class="actions"><button type="button" class="btn ${inLes?"added":""}" data-toggle="${e.id}" aria-pressed="${inLes}">${inLes?`✓ ${C.inLabel}`:`+ Voeg toe aan de ${C.unit}`}</button>${inLes?tStep(sl):""}</div>`;
   if(!dlg.open)dlg.showModal();
 }
 document.addEventListener("click",ev=>{

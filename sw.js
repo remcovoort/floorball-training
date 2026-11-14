@@ -1,5 +1,5 @@
 /* Offline-app: eerst het netwerk (zodat iedereen de nieuwste versie krijgt), anders de bewaarde kopie. */
-const CACHE = "floorball-v10";
+const CACHE = "floorball-v11";
 const CORE = ["./", "index.html", "manifest.webmanifest", "o18/", "gymles/", "gymles/index.html", "gymzaal/", "gymzaal/manifest.webmanifest", "icons/gymzaal-logo.png", "icons/gymzaal-192.png", "o12/", "o14/", "overzicht/",
   "shared/shim.js", "shared/config.js", "shared/online.js", "shared/exercises.json",
   "icons/icon-192.png", "icons/icon-512.png", "icons/apple-touch-icon.png"];

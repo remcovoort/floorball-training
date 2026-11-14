@@ -262,7 +262,7 @@ svg.hall{width:100%;height:auto;display:block}
     <a class="fb-home" href="../">← Terug naar startpagina</a>
     <div class="eyebrow">Jeugdtraining · 10–12 jaar · kleinveld</div>
     <h1>Floorball O12 training</h1>
-    <p class="lead">Achttien oefeningen voor kinderen tot 12 jaar op kleinveld: veel balcontacten, korte uitleg en spelvormen met een winnaar. Zeven vormen komen uit Zweden en Zwitserland en zijn gemarkeerd. Tik op + In training om oefeningen te kiezen en pas per oefening de tijd aan. De genummerde stappen in elke tekening lopen als animatie af.</p>
+    <p class="lead">Achttien oefeningen voor kinderen tot 12 jaar op kleinveld: veel balcontacten, korte uitleg en spelvormen met een winnaar. Zeven vormen komen uit Zweden en Zwitserland en zijn gemarkeerd. Tik op + In de training om oefeningen te kiezen en pas per oefening de tijd aan. De genummerde stappen in elke tekening lopen als animatie af.</p>
     <button type="button" class="linkbtn" id="open-afs">Accenten voor deze leeftijd</button>
   </header>
 
@@ -862,7 +862,7 @@ const SLOTS_OLD=[
   {k:"partij",label:"Afsluiting",cats:["Spel","Speciale situaties"]}
 ];
 const LVL=[["makkelijker","Makkelijker"],["basis","Basis"],["moeilijker","Moeilijker"]];
-const C={"key": "o12-sel", "oldKey": "o12-training", "unit": "training", "Unit": "Training", "title": "Mijn training", "inLabel": "In training", "btnLabel": "Training", "people": "spelers", "libName": "Training", "hallWord": "veldindeling", "extra": "Reken 15 minuten extra voor uitleg, drinken en uitlopen."};
+const C={"key": "o12-sel", "oldKey": "o12-training", "unit": "training", "Unit": "Training", "title": "Mijn training", "inLabel": "In de training", "btnLabel": "Training", "people": "spelers", "libName": "Training", "hallWord": "veldindeling", "extra": "Reken 15 minuten extra voor uitleg, drinken en uitlopen."};
 const PH_ORD={warm:0,kern:1,partij:2};
 const minClamp=v=>Math.max(1,Math.min(90,Math.round(Number(v))||1));
 let sel=[], WISSEL=3, curNr=null;
@@ -1012,7 +1012,7 @@ function openEx(id){
       <div class="box easy"><h4>Makkelijker</h4><ul>${e.makkelijker.map(x=>`<li>${x}</li>`).join("")}</ul></div>
       <div class="box hard"><h4>Moeilijker</h4><ul>${e.moeilijker.map(x=>`<li>${x}</li>`).join("")}</ul></div>
     </div>
-    <div class="actions"><button type="button" class="btn ${inLes?"added":""}" data-toggle="${e.id}" aria-pressed="${inLes}">${inLes?`✓ ${C.inLabel}`:`+ Voeg toe aan ${C.unit}`}</button>${inLes?tStep(sl):""}</div>`;
+    <div class="actions"><button type="button" class="btn ${inLes?"added":""}" data-toggle="${e.id}" aria-pressed="${inLes}">${inLes?`✓ ${C.inLabel}`:`+ Voeg toe aan de ${C.unit}`}</button>${inLes?tStep(sl):""}</div>`;
   if(!dlg.open)dlg.showModal();
 }
 document.addEventListener("click",ev=>{
