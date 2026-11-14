@@ -300,7 +300,50 @@ header.fb-has-logo{position:relative}
 header.fb-has-logo>:not(.fb-logo-a):not(.fb-home){padding-right:clamp(64px,15vw,110px);text-align:left}
 .fb-logo-a{position:absolute;top:18px;right:0}
 .fb-logo{display:block;width:auto;height:clamp(84px,19vw,130px)}
-@media print{.fb-form,.fb-rate,.fb-dlg-rate,.fb-home,.fb-search{display:none!important}.fb-logo{height:70px}}`;
+@media print{.fb-form,.fb-rate,.fb-dlg-rate,.fb-home,.fb-search{display:none!important}.fb-logo{height:70px}}
+/* UI-herziening nov 2026: rustiger kaarten, compacte balken op mobiel, grotere tikvlakken */
+.legrow{display:flex;flex-wrap:wrap;align-items:flex-start;gap:8px 16px;margin-block:0 12px}
+.legwrap{flex:1 1 0;min-width:0}
+.legwrap summary{cursor:pointer;font-weight:700;font-size:14px;color:var(--muted);min-height:44px;display:inline-flex;align-items:center;gap:6px}
+.legwrap .legend{margin-block:4px 4px}
+.legrow .pause{font:inherit;font-size:14px;border:1.5px solid var(--line);background:var(--surface);color:var(--ink);border-radius:999px;padding:0 14px;min-height:44px;cursor:pointer;margin-left:auto}
+.fchips{display:contents}
+.fgl{align-self:center;font-weight:700;font-size:13px;letter-spacing:.06em;text-transform:uppercase;color:var(--muted);flex:none}
+.chip{min-height:44px;padding:6px 16px}
+.btn{min-height:44px}
+.tstep button{width:44px;height:44px}
+.mini button,.les-list .mini button{width:44px;height:44px}
+.close{width:44px;height:44px}
+.fb-search input{min-height:40px}
+.meta .m2{border:none;padding:0}
+.card .num{margin-bottom:-4px}
+.tile.zero{display:none}
+#mat .dlg-body{display:flex;flex-direction:column}
+#mat .les-actions{order:2;position:sticky;bottom:0;z-index:2;background:var(--surface);margin:0 -18px -20px;padding:12px 18px calc(12px + env(safe-area-inset-bottom,0px));border-top:1px solid var(--line)}
+#mat #sum-list{order:1}
+#dlg .dlg-body>.actions:last-child{position:sticky;bottom:0;z-index:2;background:var(--surface);margin:0 -18px -20px;padding:12px 18px calc(12px + env(safe-area-inset-bottom,0px));border-top:1px solid var(--line)}
+.print-choice{display:flex;flex-wrap:wrap;gap:8px;width:100%}
+.print-choice[hidden]{display:none}
+@media (prefers-color-scheme:dark){:root:not([data-theme="light"]) .lesbar{background:var(--surface);color:var(--ink);border-top:1px solid var(--line)}:root:not([data-theme="light"]) .lesbar .btn{border-color:var(--ink);color:var(--ink)}:root:not([data-theme="light"]) .lesbar .btn.light{background:var(--ink);color:var(--surface)}}
+:root[data-theme="dark"] .lesbar{background:var(--surface);color:var(--ink);border-top:1px solid var(--line)}
+:root[data-theme="dark"] .lesbar .btn{border-color:var(--ink);color:var(--ink)}
+:root[data-theme="dark"] .lesbar .btn.light{background:var(--ink);color:var(--surface)}
+@media (max-width:700px){
+  .filters{flex-wrap:wrap;row-gap:8px}
+  .fchips{display:flex;gap:8px;flex:1 1 100%;flex-wrap:nowrap;overflow-x:auto;margin-inline:-16px;padding-inline:16px;scrollbar-width:none;-webkit-mask-image:linear-gradient(90deg,#000 88%,transparent);mask-image:linear-gradient(90deg,#000 88%,transparent)}
+  .fchips::-webkit-scrollbar{display:none}
+  .fchips>*{flex:none}
+  .filters .fb-tools{flex:1 1 100%;margin-left:0}
+  .filters .fb-search{max-width:none}
+  .lesbar{padding-top:8px;padding-bottom:calc(8px + env(safe-area-inset-bottom,0px))}
+  .lesbar .in{display:grid;grid-template-columns:1fr;gap:6px}
+  .lesbar strong{font-size:18px}
+  .lesbar .bar-sub{display:none}
+  .barbtns{display:grid;grid-template-columns:repeat(3,1fr);gap:6px}
+  .lesbar .btn{padding:6px 4px;font-size:14px;white-space:nowrap}
+  .lesbar .lg{display:none}
+  body{padding-bottom:110px}
+}`;
   const st = document.createElement("style"); st.textContent = css; document.head.appendChild(st);
 
   function start() {
@@ -334,6 +377,15 @@ header.fb-has-logo>:not(.fb-logo-a):not(.fb-home){padding-right:clamp(64px,15vw,
     })();
     if (HOSTED && "serviceWorker" in navigator && location.protocol === "https:") navigator.serviceWorker.register("../sw.js", { scope: "../" }).catch(() => {});
   }
+
+  /* Eén printknop in het trainingsoverzicht: opent de keuze tussen alleen oefeningen of alles. */
+  document.addEventListener("click", ev => {
+    const pm = ev.target.closest("#print-menu"), om = ev.target.closest("#open-mat");
+    const c = document.getElementById("print-choice"), b = document.getElementById("print-menu");
+    if (!c || !b) return;
+    if (pm) { c.hidden = !c.hidden; b.setAttribute("aria-expanded", String(!c.hidden)); }
+    else if (om) { c.hidden = true; b.setAttribute("aria-expanded", "false"); }
+  });
   if (document.readyState === "loading") document.addEventListener("DOMContentLoaded", start); else start();
   window.FB_ONLINE = { loadStats, get stats() { return stats; } };
 })();

@@ -262,15 +262,15 @@ svg.hall{width:100%;height:auto;display:block}
 <div class="wrap">
   <header>
     <a class="fb-home" href="../">← Terug naar startpagina</a>
-    <div class="eyebrow">O10 · 6–10 jaar · groep 3–8</div>
-    <h1>Floorball O10 training</h1>
-    <p class="lead">Drieëndertig oefeningen met opstelling, uitleg en variaties. Tik op + In de training om oefeningen te kiezen en pas per oefening de tijd aan. Kies per oefening het niveau en zet de timer aan.</p>
+    <div class="eyebrow">Jeugdtraining · 6–10 jaar · groep 3–8</div>
+    <h1>Floorball training onder 10</h1>
+    <p class="lead">Drieëndertig oefeningen met opstelling, uitleg en variaties.</p>
     <button type="button" class="linkbtn" id="open-afs">Afspraken vooraf: veilig spelen met de stick</button>
   </header>
 
 
 
-  <div class="legend" aria-label="Legenda">
+  <div class="legrow"><details class="legwrap"><summary>Legenda bij de tekeningen</summary><div class="legend" aria-label="Legenda">
     <span><svg viewBox="0 0 28 12"><circle cx="6" cy="6" r="5" class="c-pa"/></svg>Team A</span>
     <span><svg viewBox="0 0 28 12"><circle cx="6" cy="6" r="5" class="c-pb"/></svg>Team B / tikker</span>
     <span><svg viewBox="0 0 28 12"><circle cx="6" cy="6" r="5" class="c-pj"/></svg>Joker</span>
@@ -279,8 +279,7 @@ svg.hall{width:100%;height:auto;display:block}
     <span><svg viewBox="0 0 28 12"><line x1="1" y1="6" x2="27" y2="6" class="a-pass"/></svg>Pass</span>
     <span><svg viewBox="0 0 28 12"><line x1="1" y1="6" x2="27" y2="6" class="a-run"/></svg>Loopactie</span>
     <span><svg viewBox="0 0 28 12"><line x1="1" y1="6" x2="27" y2="6" class="a-shot"/></svg>Schot</span>
-    <button type="button" class="pause" id="pause" aria-pressed="false">Animatie pauzeren</button>
-  </div>
+    </div></details><button type="button" class="pause" id="pause" aria-pressed="false">Animatie pauzeren</button></div>
 
   <div class="filters" id="filters" role="group" aria-label="Filter op onderdeel"></div>
   <div class="grid" id="grid"></div>
@@ -289,7 +288,7 @@ svg.hall{width:100%;height:auto;display:block}
 <div class="lesbar">
   <div class="in">
     <div><strong id="les-sum">0 oefeningen · 0 min</strong><div class="bar-sub" id="les-sub"></div></div>
-    <div class="barbtns"><button class="btn light" id="open-mat" type="button">Training</button><button class="btn" id="open-ob" type="button">Materiaal en veld</button><button class="btn" id="open-bib" type="button">Bibliotheek</button></div>
+    <div class="barbtns"><button class="btn light" id="open-mat" type="button">Training</button><button class="btn" id="open-ob" type="button">Materiaal<span class="lg"> en veld</span></button><button class="btn" id="open-bib" type="button">Bibliotheek</button></div>
   </div>
 </div>
 
@@ -300,7 +299,7 @@ svg.hall{width:100%;height:auto;display:block}
 
 <dialog id="mat" aria-labelledby="mat-title">
   <div class="dlg-head"><div><div class="num">Trainingsoverzicht</div><h2 id="mat-title">Mijn training</h2></div><button class="close" type="button" data-close aria-label="Sluiten">×</button></div>
-  <div class="dlg-body"><div class="les-actions"><button type="button" class="btn primary" id="do-print">Print als pdf - oefeningen</button><button type="button" class="btn primary" id="do-print-all">Print als pdf - oefeningen, materiaal, ombouw</button><button type="button" class="btn" id="do-save">Bewaren</button><span class="msg" id="les-msg" role="status" aria-live="polite"></span><form class="save-row" id="save-row" hidden><label for="save-name" style="font-weight:700">Naam</label><input id="save-name" type="text" maxlength="60" autocomplete="off"><button type="submit" class="btn primary" id="save-ok">Opslaan</button><button type="button" class="btn" id="save-cancel">Annuleren</button><p class="hint" id="save-hint"></p></form></div><div id="sum-list"></div></div>
+  <div class="dlg-body"><div class="les-actions"><button type="button" class="btn primary" id="print-menu" aria-expanded="false" aria-controls="print-choice">Print als pdf</button><button type="button" class="btn" id="do-save">Bewaren</button><div class="print-choice" id="print-choice" hidden><button type="button" class="btn" id="do-print">Alleen oefeningen</button><button type="button" class="btn" id="do-print-all">Oefeningen, materiaal en ombouw</button></div><span class="msg" id="les-msg" role="status" aria-live="polite"></span><form class="save-row" id="save-row" hidden><label for="save-name" style="font-weight:700">Naam</label><input id="save-name" type="text" maxlength="60" autocomplete="off"><button type="submit" class="btn primary" id="save-ok">Opslaan</button><button type="button" class="btn" id="save-cancel">Annuleren</button><p class="hint" id="save-hint"></p></form></div><div id="sum-list"></div></div>
 </dialog>
 <dialog id="afs" aria-labelledby="afs-title">
   <div class="dlg-head"><div><div class="num">Voor je begint</div><h2 id="afs-title">Afspraken vooraf</h2></div><button class="close" type="button" data-close aria-label="Sluiten">×</button></div>
@@ -314,7 +313,7 @@ svg.hall{width:100%;height:auto;display:block}
 
 <dialog id="ob" aria-labelledby="ob-title">
   <div class="dlg-head"><div><div class="num">Wat neem je mee en hoe zet je het neer</div><h2 id="ob-title">Materiaal en veld</h2></div><button class="close" type="button" data-close aria-label="Sluiten">×</button></div>
-  <div class="dlg-body"><div class="les-actions"><button type="button" class="btn primary" id="ob-print">Print als pdf - materiaal en veld</button><span class="msg" id="ob-msg" role="status" aria-live="polite"></span></div><h3 class="mv-h">Materiaal</h3><div class="kit">
+  <div class="dlg-body"><div class="les-actions"><button type="button" class="btn primary" id="ob-print">Print als pdf</button><span class="msg" id="ob-msg" role="status" aria-live="polite"></span></div><h3 class="mv-h">Materiaal</h3><div class="kit">
     <div class="kit-top">
       <p class="sub" id="kit-scope" style="margin:0"></p>
       <div class="stepwrap">
@@ -1169,7 +1168,7 @@ const pad=n=>String(n).padStart(2,"0");
 const idx=id=>EX.findIndex(e=>e.id===id);
 
 function renderFilters(){
-  document.getElementById("filters").innerHTML=CATS.map(c=>`<button type="button" class="chip" id="f-${c}" aria-pressed="${c===filter}" data-cat="${c}">${c==="Alles"?"":`<span class="dot ph-${phaseOf(c)}"></span>`}${c}</button>`).join("");
+  document.getElementById("filters").innerHTML=`<div class="fchips">`+CATS.map(c=>`<button type="button" class="chip" id="f-${c}" aria-pressed="${c===filter}" data-cat="${c}">${c==="Alles"?"":`<span class="dot ph-${phaseOf(c)}"></span>`}${c}</button>`).join("")+`</div>`;
 }
 function tStep(x){const t=EX[idx(x.id)].title;
   return `<div class="tstep" role="group" aria-label="Tijd voor ${t}"><button type="button" data-tmin="${x.id}" data-d="-1" aria-label="Eén minuut minder">−</button><span data-tm="${x.id}">${x.min} min</span><button type="button" data-tmin="${x.id}" data-d="1" aria-label="Eén minuut meer">+</button></div>`}
@@ -1184,14 +1183,13 @@ function renderGrid(){
     return head+`<article class="card ph-${ph}${x?" sel":""}">
       <div class="field">${svg(e,"g"+i)}</div>
       <div class="body">
-        <span class="phase-tag">${PH_LABEL[ph]}</span>
-        <div class="num">${pad(i+1)} · ${e.cat}</div>
+        <div class="num">${pad(i+1)}${e.cat!==PH_LABEL[ph]?` · ${e.cat}`:""}</div>
         <h3>${e.title}</h3>
-        <div class="meta"><span>groep ${e.groep}</span><span>${e.min} min</span><span>veld ${e.maat}</span><span>${e.kids}</span></div>
+        <div class="meta"><span class="m2">${e.min} min · ${e.kids} · groep ${e.groep}</span></div>
         <p>${e.doel}</p>
         <div class="actions">
-          <button type="button" class="btn primary" data-open="${e.id}">Uitleg</button>
-          <button type="button" class="btn ${x?"added":""}" data-toggle="${e.id}" aria-pressed="${!!x}">${x?"✓ ":"+ "}${C.inLabel}</button>
+          <button type="button" class="btn ${x?"added":"primary"}" data-toggle="${e.id}" aria-pressed="${!!x}">${x?"✓ ":"+ "}${C.inLabel}</button>
+          <button type="button" class="btn" data-open="${e.id}">Uitleg</button>
           ${x?tStep(x):""}
         </div>
       </div></article>`}).join("");
@@ -1228,7 +1226,7 @@ const dlg=document.getElementById("dlg"), lesDlg=document.getElementById("mat"),
 function openEx(id){
   const e=EX[idx(id)], i=idx(id), sl=selOf(id), inLes=!!sl;
   dlg.dataset.id=id;stopTimer();tTotal=tLeft=(sl?sl.min:e.min)*60;
-  document.getElementById("dlg-num").textContent=`${PH_LABEL[phaseOf(e.cat)]} · ${e.cat} · groep ${e.groep}`;
+  document.getElementById("dlg-num").textContent=`${PH_LABEL[phaseOf(e.cat)]}${e.cat!==PH_LABEL[phaseOf(e.cat)]?` · ${e.cat}`:""} · groep ${e.groep}`;
   dlg.className="ph-"+phaseOf(e.cat);
   document.getElementById("dlg-title").textContent=e.title;
   document.getElementById("dlg-body").innerHTML=`
@@ -1246,7 +1244,7 @@ function openEx(id){
       <div class="box easy"><h4>Makkelijker</h4><ul>${e.makkelijker.map(x=>`<li>${x}</li>`).join("")}</ul></div>
       <div class="box hard"><h4>Moeilijker</h4><ul>${e.moeilijker.map(x=>`<li>${x}</li>`).join("")}</ul></div>
     </div>
-    <div class="actions"><button type="button" class="btn ${inLes?"added":""}" data-toggle="${e.id}" aria-pressed="${inLes}">${inLes?`✓ ${C.inLabel}`:`+ Voeg toe aan de ${C.unit}`}</button>${inLes?tStep(sl):""}</div>`;
+    <div class="actions"><button type="button" class="btn ${inLes?"added":"primary"}" data-toggle="${e.id}" aria-pressed="${inLes}">${inLes?`✓ ${C.inLabel}`:`+ Voeg toe aan de ${C.unit}`}</button>${inLes?tStep(sl):""}</div>`;
   if(!dlg.open)dlg.showModal();
 }
 document.addEventListener("click",ev=>{
