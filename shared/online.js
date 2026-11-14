@@ -308,6 +308,14 @@ header.fb-has-logo>:not(.fb-logo-a):not(.fb-home){padding-right:clamp(64px,15vw,
     /* Losse app (bijv. gymzaal/): eigen logo, geen terugknop naar de startpagina. */
     const APP = window.FB_APP;
     if (APP && head) {
+      const T = APP.texts || {}, W = APP.words, set = (sel, t) => { const el = document.querySelector(sel); if (el && t) el.textContent = t; };
+      if (T.title) document.title = T.title;
+      set("header .eyebrow", T.eyebrow); set("header h1", T.h1);
+      if (W) {
+        set("#open-mat", W.btnLabel); set("#mat-title", W.title);
+        const mt = document.getElementById("mat-title"), num = mt && mt.previousElementSibling; if (num) num.textContent = W.Unit + "overzicht";
+        document.querySelectorAll("header .lead, .note").forEach(el => { el.innerHTML = el.innerHTML.replace(/In de training/g, "In de " + W.unit).replace(/elke training/g, "elke " + W.unit); });
+      }
       head.querySelectorAll(".fb-home").forEach(a => a.remove());
       if (APP.home) head.insertAdjacentHTML("afterbegin", `<a class="fb-home" href="${APP.home}">← Terug naar startpagina</a>`);
       if (!head.querySelector(".fb-logo")) { head.classList.add("fb-has-logo"); head.insertAdjacentHTML("afterbegin", `<a href="${APP.home || "#"}" class="fb-logo-a" aria-label="Naar de startpagina"><img class="fb-logo" src="${APP.logo}" alt="${esc(APP.logoAlt || "")}"></a>`); }

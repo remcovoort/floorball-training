@@ -1,6 +1,7 @@
 /* Gymzaal-app: laadt een programmapagina uit de training-app (bijv. ../../gymles/index.html)
    en toont die met het gymzaal-logo, de gymzaal-iconen en een terugknop naar de gymzaal-startpagina.
    De oefeningen staan dus maar op één plek; wijzig ze altijd in de map van het programma zelf.
+   Woorden (gymles i.p.v. training) en kopteksten per programma staan hieronder in APP.
    Gebruik: <script src="../loader.js" data-program="gymles"></script> */
 (function () {
   var me = document.currentScript, PROGRAM = me.getAttribute("data-program");
@@ -9,7 +10,12 @@
     id: "gymzaal",
     logo: abs("../icons/gymzaal-logo.png"),
     logoAlt: "Floorball in de gymzaal",
-    home: abs("./")
+    home: abs("./"),
+    words: { unit: "gymles", Unit: "Gymles", title: "Mijn gymles", inLabel: "In de gymles", btnLabel: "Gymles" },
+    texts: ({
+      gymles: { title: "Gymles groep 3–6 · Floorball in de gymzaal", eyebrow: "Gymles · groep 3–6", h1: "Floorball in de gymzaal" },
+      o12:    { title: "Gymles groep 7–8 · Floorball in de gymzaal", eyebrow: "Gymles · groep 7–8", h1: "Floorball in de gymzaal" }
+    })[PROGRAM] || {}
   };
   var inject = '<base href="' + abs("../" + PROGRAM + "/") + '">' +
     '<script>window.FB_APP=' + JSON.stringify(APP) + '<\/script>';
