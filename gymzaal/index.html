@@ -5,7 +5,8 @@
 <meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">
 <title>Floorball in de gymzaal</title>
 <link rel="manifest" href="manifest.webmanifest">
-<link rel="icon" href="../icons/icon-192.png">
+<link rel="icon" href="../icons/gymzaal-192.png">
+<link rel="apple-touch-icon" href="../icons/gymzaal-apple-touch.png">
 <style>body{margin:0;background:#eef1ec;font:16px system-ui,sans-serif;color:#5b6672}p{padding:24px;text-align:center}</style>
 </head>
 <body>
@@ -17,7 +18,7 @@
    in gymles/index.html; ze verschijnen dan vanzelf in beide apps.
    Logo vervangen: zet het nieuwe bestand in icons/ en pas LOGO hieronder aan. */
 (function () {
-  var LOGO = "../icons/gymzaal-logo.svg", LOGO_ALT = "Floorball in de gymzaal";
+  var LOGO = "../icons/gymzaal-logo.png", LOGO_ALT = "Floorball in de gymzaal";
   var inject = '<base href="../gymles/">' +
     '<script>window.FB_APP={id:"gymzaal",logo:' + JSON.stringify(LOGO) + ',logoAlt:' + JSON.stringify(LOGO_ALT) + '}<\/script>';
   fetch("../gymles/index.html", { cache: "no-cache" })
@@ -25,7 +26,9 @@
     .then(function (html) {
       html = html
         .replace(/<head>/i, "<head>" + inject)
-        .replace('href="../manifest.webmanifest"', 'href="../gymzaal/manifest.webmanifest"');
+        .replace('href="../manifest.webmanifest"', 'href="../gymzaal/manifest.webmanifest"')
+        .replace('href="../icons/icon-192.png"', 'href="../icons/gymzaal-192.png"')
+        .replace('href="../icons/apple-touch-icon.png"', 'href="../icons/gymzaal-apple-touch.png"');
       document.open(); document.write(html); document.close();
     })
     .catch(function () {

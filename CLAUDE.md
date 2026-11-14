@@ -31,7 +31,7 @@ Alles wat op `main` komt, staat binnen een paar minuten live.
 | --- | --- |
 | `index.html` | Startpagina. Programma's staan in de lijst `PROGRAMS`. |
 | `gymles/`, `o12/`, `o14/`, `o18/` | Eén programma per map, elk één groot `index.html` met de oefeningen in `const EX = [...]`. |
-| `gymzaal/` | Losse app "Floorball in de gymzaal": laadt `gymles/index.html` in met een eigen logo (`icons/gymzaal-logo.svg`), eigen manifest en zonder terugknop. Bevat zelf geen oefeningen; wijzig die altijd in `gymles/`. In de hoofdapp heet dit programma O10; de gymzaal-app zet de teksten terug naar "gymles" (blok `if(window.FB_APP)` in `gymles/index.html`). De map en de programma-id blijven `gymles`, anders zijn scores en opgeslagen lessen weg. |
+| `gymzaal/` | Losse app "Floorball in de gymzaal": laadt `gymles/index.html` in met een eigen logo (`icons/gymzaal-logo.png`, NeFUB-balletje, met toestemming gebruikt) en eigen app-iconen (`icons/gymzaal-*.png`), eigen manifest en zonder terugknop. Bevat zelf geen oefeningen; wijzig die altijd in `gymles/`. In de hoofdapp heet dit programma O10; de gymzaal-app zet de teksten terug naar "gymles" (blok `if(window.FB_APP)` in `gymles/index.html`). De map en de programma-id blijven `gymles`, anders zijn scores en opgeslagen lessen weg. |
 | `overzicht/` | Scores en toelichtingen van alle gebruikers, uit Supabase. |
 | `shared/online.js` | Gedeeld voor alle programmapagina's: sterren, toelichting, zoeken, sterrenfilter, logo, terug-knop, service worker. |
 | `shared/shim.js` | Pdf opslaan in de browser (vervangt de Claude-artifactfunctie). |

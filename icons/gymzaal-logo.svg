@@ -1,9 +1,0 @@
-<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 160 200" width="160" height="200">
-  <!-- Tijdelijk logo voor de app "Floorball in de gymzaal". Vervang door het definitieve logo. -->
-  <circle cx="80" cy="76" r="70" fill="#2f6fdb"/>
-  <path d="M46 34 L92 112 Q98 122 110 120 L128 117" fill="none" stroke="#fff" stroke-width="10" stroke-linecap="round" stroke-linejoin="round"/>
-  <circle cx="62" cy="108" r="15" fill="#f2b705"/>
-  <g fill="#fff" opacity=".9"><circle cx="57" cy="103" r="2.6"/><circle cx="67" cy="104" r="2.6"/><circle cx="58" cy="114" r="2.6"/><circle cx="68" cy="114" r="2.6"/></g>
-  <text x="80" y="172" text-anchor="middle" font-family="Barlow Condensed,Arial Narrow,Arial,sans-serif" font-weight="800" font-size="23" fill="#2f6fdb" letter-spacing=".5">FLOORBALL</text>
-  <text x="80" y="194" text-anchor="middle" font-family="Barlow Condensed,Arial Narrow,Arial,sans-serif" font-weight="600" font-size="16" fill="#f26a21" letter-spacing="1">IN DE GYMZAAL</text>
-</svg>
