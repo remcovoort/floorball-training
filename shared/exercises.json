@@ -191,6 +191,12 @@
    "title": "Kast afbouwen",
    "cat": "Spel",
    "phase": "Partij"
+  },
+  {
+   "id": "hoepelritme",
+   "title": "Hoepelritme en reactiestart",
+   "cat": "Snelheid & coördinatie",
+   "phase": "Kern"
   }
  ],
  "o12": [
@@ -233,7 +239,7 @@
   {
    "id": "dribbel-estafette",
    "title": "Dribbelestafette",
-   "cat": "Passen",
+   "cat": "Dribbelen",
    "phase": "Kern"
   },
   {
@@ -312,6 +318,30 @@
    "id": "keeper-werpen",
    "title": "Keeper: vangen en werpen",
    "cat": "Keeper",
+   "phase": "Kern"
+  },
+  {
+   "id": "getrokken-schot",
+   "title": "Getrokken schot leren",
+   "cat": "Schieten",
+   "phase": "Kern"
+  },
+  {
+   "id": "schuifslag",
+   "title": "Schuifslagschot op doel",
+   "cat": "Schieten",
+   "phase": "Kern"
+  },
+  {
+   "id": "aanname-fh-bh",
+   "title": "Aannemen op forehand en backhand",
+   "cat": "Passen",
+   "phase": "Kern"
+  },
+  {
+   "id": "reactiestart",
+   "title": "Reactiestart met bal",
+   "cat": "Snelheid & coördinatie",
    "phase": "Kern"
   }
  ],
@@ -428,6 +458,30 @@
    "id": "keeper-uitwerpen",
    "title": "Keeper: redden en uitwerpen",
    "cat": "Keeper",
+   "phase": "Kern"
+  },
+  {
+   "id": "finten",
+   "title": "Schijnbeweging en tempowissel",
+   "cat": "Balvoering",
+   "phase": "Kern"
+  },
+  {
+   "id": "draaien",
+   "title": "Wegdraaien met de rug naar het doel",
+   "cat": "Balvoering",
+   "phase": "Kern"
+  },
+  {
+   "id": "een-een-doeltje",
+   "title": "1 tegen 1 naar een klein doel",
+   "cat": "Duels",
+   "phase": "Kern"
+  },
+  {
+   "id": "ladder-sprint",
+   "title": "Voetenwerk en wegsprinten",
+   "cat": "Snelheid & coördinatie",
    "phase": "Kern"
   }
  ],
@@ -574,6 +628,24 @@
    "id": "keeper-rebound",
    "title": "Keeper: reboundwedstrijd",
    "cat": "Keeper",
+   "phase": "Kern"
+  },
+  {
+   "id": "forechecking",
+   "title": "Forechecking met drie",
+   "cat": "Verdedigen",
+   "phase": "Kern"
+  },
+  {
+   "id": "hoek-een-een",
+   "title": "1 tegen 1 uit de hoek",
+   "cat": "Balvoering",
+   "phase": "Kern"
+  },
+  {
+   "id": "sprint-bal",
+   "title": "Sprints met stick en bal",
+   "cat": "Snelheid & coördinatie",
    "phase": "Kern"
   }
  ]

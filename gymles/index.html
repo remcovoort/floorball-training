@@ -264,7 +264,7 @@ svg.hall{width:100%;height:auto;display:block}
     <a class="fb-home" href="../">← Terug naar startpagina</a>
     <div class="eyebrow">O10 · 6–10 jaar · groep 3–8</div>
     <h1>Floorball O10 training</h1>
-    <p class="lead">Tweeëndertig oefeningen met opstelling, uitleg en variaties. Tik op + In de training om oefeningen te kiezen en pas per oefening de tijd aan. Kies per oefening het niveau en zet de timer aan.</p>
+    <p class="lead">Drieëndertig oefeningen met opstelling, uitleg en variaties. Tik op + In de training om oefeningen te kiezen en pas per oefening de tijd aan. Kies per oefening het niveau en zet de timer aan.</p>
     <button type="button" class="linkbtn" id="open-afs">Afspraken vooraf: veilig spelen met de stick</button>
   </header>
 
@@ -713,10 +713,23 @@ const EX = [
    {t:"p",x:90,y:60,ball:1},{t:"p",x:120,y:124},{t:"p",x:170,y:50},
    {t:"p",x:150,y:95,team:"b"},{t:"p",x:205,y:72,team:"b"},{t:"p",x:215,y:124,team:"b"},
    {t:"a",k:"pass",d:"M98 58 L162 51"},{t:"a",k:"dribble",d:"M178 50 Q218 42 236 72"},{t:"a",k:"shot",d:"M240 80 L259 88"},
-   {t:"txt",x:84,y:14,s:"raak = kastdeel eraf bij de ander"}]}
+   {t:"txt",x:84,y:14,s:"raak = kastdeel eraf bij de ander"}]},
+{id:"hoepelritme",cat:"Snelheid & coördinatie",title:"Hoepelritme en reactiestart",groep:"3–8",min:8,kids:"rijen van 4–5",
+  mat:["stick per kind","1 bal per rij","6 hoepels per rij","2 pionnen per rij"],
+  doel:"Ritme in je voeten krijgen en snel reageren op een teken.",
+  stappen:["Leg per rij zes hoepels achter elkaar op de grond. Aan het eind staan twee pionnen, een links en een rechts.","Loop door de hoepels in een vast ritme: eerst één voet per hoepel, dan twee voeten per hoepel, dan hinkelen.","Na de laatste hoepel steekt de leerkracht een arm op: sprint naar de pion aan die kant.","Tweede ronde met stick en bal: de bal gaat naast de hoepels mee, jij loopt erdoorheen.","Wandel langs de zijkant terug en sluit achteraan aan."],
+  tips:["Kleine, snelle stapjes op je voorvoeten.","Kijk na de laatste hoepel op naar de arm, niet naar je voeten."],
+  makkelijker:["Minder hoepels, verder uit elkaar.","Alleen het ritme, zonder sprint aan het eind."],
+  moeilijker:["De leerkracht klapt: bij elke klap wissel je van ritme.","Omgekeerd: sprint juist naar de pion aan de andere kant."],
+  fig:[...[66,92,118,144,170,196].flatMap(x=>[{t:"hoop",x,y:55},{t:"hoop",x,y:125}]),
+   {t:"cone",x:250,y:30},{t:"cone",x:250,y:80},{t:"cone",x:250,y:100},{t:"cone",x:250,y:132},
+   {t:"p",x:40,y:55},{t:"p",x:20,y:55},{t:"p",x:40,y:150,ball:1},{t:"p",x:20,y:150},
+   {t:"a",k:"run",d:"M48 55 L208 55"},{t:"a",k:"run",d:"M212 55 Q232 50 244 36"},
+   {t:"a",k:"dribble",d:"M48 150 L208 150"},{t:"a",k:"dribble",d:"M212 150 Q234 152 244 140"},
+   {t:"txt",x:8,y:14,s:"1 voet · 2 voeten · hinkelen"}]}
 ];
 
-const CAT_ORDER=["Warming-up","Dribbelen","Passen","Schieten","Balbeheersing","Spel"];
+const CAT_ORDER=["Warming-up","Snelheid & coördinatie","Dribbelen","Passen","Schieten","Balbeheersing","Spel"];
 EX.sort((a,b)=>CAT_ORDER.indexOf(a.cat)-CAT_ORDER.indexOf(b.cat));
 const CATS=["Alles",...new Set(EX.map(e=>e.cat))];
 const phaseOf=cat=>cat==="Warming-up"?"warm":cat==="Spel"?"partij":"kern";
@@ -724,6 +737,7 @@ const PH_LABEL={warm:"Warming-up",kern:"Kern",partij:"Partij"};
 
 /* materiaal per oefening, afhankelijk van aantal kinderen n */
 const NEED={
+  "hoepelritme":n=>{const r=Math.ceil(n/5);return{stick:n,bal:r,pion:2*r,hoepel:6*r}},
   "stoplicht":n=>({stick:n,bal:n,pion:4}),
   "balletje-tik":n=>{const t=n<20?2:3;return{stick:n,bal:n-t,pion:4,hesje:t}},
   "slalom":n=>{const r=Math.ceil(n/5);return{stick:n,bal:r,pion:5*r}},
@@ -762,7 +776,7 @@ let N=26;
 try{const v=parseInt(localStorage.getItem("fb-n"),10);if(v>=4&&v<=40)N=v}catch(e){}
 function needText(id){const r=NEED[id](N);return ITEMS.filter(([k])=>r[k]).map(([k,,s,p])=>`${r[k]} ${r[k]===1?s:p}`).join(", ")}
 
-const MAAT={"stoplicht":"15 × 10 m","balletje-tik":"15 × 10 m","schaduw":"15 × 10 m","schatrovers":"20 × 12 m","slalom":"12 m per baan","tweetallen":"6 m per tweetal","driehoek":"zijde 6 m","pionnen-omschieten":"12 × 12 m","dribbel-schiet":"18 × 10 m","koning-vak":"10 × 8 m","een-tegen-een":"10 × 3,5 m per baan","drie-drie":"10 × 6 m per veldje","tikkertje-opdracht":"15 × 10 m","pionnenbos":"11 × 14 m","tijdrace":"5 × 5 m per groepje","uitdagen-finten":"8 m per tweetal","lijnbal":"halve of kwart zaal","vier-doeltjes":"halve of kwart zaal","joker-partij":"halve of kwart zaal","pionnen-omver":"halve of kwart zaal","lunapark":"6 m tot de bank","rollmops":"16 × 10 m","bowling":"12 × 4 m per baan","sternpassen":"cirkel van 5 m","fruitsalade":"hele zaal","annemaria":"hele zaal","nest-zoeken":"hele zaal","aanspeelstations":"hele zaal","kegels":"hele zaal","carrousel":"halve zaal","penaltyspel":"halve zaal","kast-afbouwen":"hele of halve zaal"};
+const MAAT={"hoepelritme":"14 m per rij","stoplicht":"15 × 10 m","balletje-tik":"15 × 10 m","schaduw":"15 × 10 m","schatrovers":"20 × 12 m","slalom":"12 m per baan","tweetallen":"6 m per tweetal","driehoek":"zijde 6 m","pionnen-omschieten":"12 × 12 m","dribbel-schiet":"18 × 10 m","koning-vak":"10 × 8 m","een-tegen-een":"10 × 3,5 m per baan","drie-drie":"10 × 6 m per veldje","tikkertje-opdracht":"15 × 10 m","pionnenbos":"11 × 14 m","tijdrace":"5 × 5 m per groepje","uitdagen-finten":"8 m per tweetal","lijnbal":"halve of kwart zaal","vier-doeltjes":"halve of kwart zaal","joker-partij":"halve of kwart zaal","pionnen-omver":"halve of kwart zaal","lunapark":"6 m tot de bank","rollmops":"16 × 10 m","bowling":"12 × 4 m per baan","sternpassen":"cirkel van 5 m","fruitsalade":"hele zaal","annemaria":"hele zaal","nest-zoeken":"hele zaal","aanspeelstations":"hele zaal","kegels":"hele zaal","carrousel":"halve zaal","penaltyspel":"halve zaal","kast-afbouwen":"hele of halve zaal"};
 EX.forEach(e=>e.maat=MAAT[e.id]);
 const slotPh=k=>k==="warmup"?"warm":k==="partij"?"partij":"kern";
 
@@ -779,6 +793,9 @@ const halves=(n,per,fn)=>{const f=fieldsFor(n,per),it=[],q=f>2,w=f===1?12:10.4,h
 const spread=(k,seed,m=1)=>{let r=seed;const rnd=()=>(r=(r*9301+49297)%233280)/233280,cols=Math.ceil(Math.sqrt(k*HW/HH)),rows=Math.ceil(k/cols),out=[];
   for(let i=0;i<k;i++){const c=i%cols,w=Math.floor(i/cols),cw=(HW-2*m)/cols,ch=(HH-2*m)/rows;out.push({x:m+(c+.25+rnd()*.5)*cw,y:m+(w+.25+rnd()*.5)*ch})}return out};
 const HALL={
+  "hoepelritme":n=>{const r=Math.ceil(n/5),it=[];
+    for(let i=0;i<r;i++){const y=(i+1)*HH/(r+1);it.push({t:"spot",x:1.5,y},...[4,5.4,6.8,8.2,9.6,11].map(x=>({t:"hoop",x,y})),{t:"cone",x:15,y:y-.5},{t:"cone",x:15,y:y+.5})}
+    return{items:it,note:`${r} ${r===1?"rij":"rijen"} naast elkaar, elk met 6 hoepels en 2 pionnen op ongeveer 4 m na de laatste hoepel`}},
   "kast-afbouwen":n=>{const f=n>=18?2:1,h=f===2?6.6:13,it=[];for(let i=0;i<f;i++){const y=f===2?(i?7.2:.2):.5;
       it.push({t:"zone",x:.3,y,w:21.4,h},{t:"kast",x:1.4,y:y+h/2},{t:"kast",x:20.6,y:y+h/2})}
     return{items:it,note:`${f} ${f===1?"veld":"velden"} van 21 × ${r1(h)} m met een Zweedse kast aan beide kanten${f===2?`, ${Math.floor(n/4)} tegen ${Math.ceil(n/4)} per veld`:""}`}},
@@ -935,6 +952,7 @@ function setN(v){v=Math.max(4,Math.min(40,v||0));N=v;try{localStorage.setItem("f
 
 /* animatie per pijl, in volgorde van de pijlen in de tekening: starttijd in seconden */
 const ANIM={
+  "hoepelritme":[{at:0},{at:2},{at:.4},{at:2.8}],
   "stoplicht":[{at:0},{at:.3},{at:.6}],
   "balletje-tik":[{at:0},{at:.2},{at:.4},{at:.6}],
   "schaduw":[{at:0},{at:.3},{at:.1},{at:.4}],
