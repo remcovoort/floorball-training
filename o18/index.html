@@ -1650,8 +1650,8 @@ kit.scene('spel', {
     this.c1 = spelCenter(DUOS[1], TW);
   },
   render(t, kit) {
-    const k1 = eio(seg(t, 0, TW)), k2 = eio(seg(t, TW + 0.3, TW + 2.4)), k3 = seg(t, TW + 2.4, TE);
-    const cam = W.cam(kit, { yaw: lerp(-0.74, -0.58, k1) + lerp(0, 0.2, k2) + 0.08 * k3, pitch: lerp(0.62, 0.44, k2), d: lerp(45, 16, k2) - 2 * k3,
+    const k1 = eio(seg(t, 0, TW)), k2 = eio(seg(t, TW - 2.2, TW + 0.8)), k3 = seg(t, TW + 0.8, TE);
+    const cam = W.cam(kit, { yaw: lerp(-0.74, -0.58, k1) + lerp(0, 0.2, k2) + 0.08 * k3, pitch: lerp(0.62, 0.44, k2), d: lerp(lerp(42, 30, k1), 16, k2) - 2 * k3,
       tx: lerp(0, this.c1[0], k2), ty: lerp(0, this.c1[1], k2), oy: lerp(110, 190, k2) });
     this.rink.render(cam);
     const items = [];
