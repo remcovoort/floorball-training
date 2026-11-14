@@ -281,7 +281,7 @@ svg.hall{width:100%;height:auto;display:block}
     <a class="fb-home" href="../">← Terug naar startpagina</a>
     <div class="eyebrow">Jeugdtraining · 16–18 jaar</div>
     <h1>Floorball O18 training</h1>
-    <p class="lead">Eenentwintig oefeningen voor spelers van 16 tot 18, gericht op tempo, beslissen onder druk en samenspel. Tik op + In de training om oefeningen te kiezen en pas per oefening de tijd aan. De genummerde stappen in elke tekening lopen als animatie af.</p>
+    <p class="lead">Vierentwintig oefeningen voor spelers van 16 tot 18, gericht op tempo, beslissen onder druk en samenspel. Tik op + In de training om oefeningen te kiezen en pas per oefening de tijd aan. De genummerde stappen in elke tekening lopen als animatie af.</p>
     <button type="button" class="linkbtn" id="open-afs">Accenten voor deze leeftijd</button>
   </header>
 
@@ -602,10 +602,43 @@ const EX = [
    {t:"goal",x:30,y:90,flip:1},{t:"goal",x:270,y:90},
    {t:"p",x:70,y:60,ball:1},{t:"p",x:90,y:125},{t:"p",x:130,y:90},{t:"p",x:178,y:45},{t:"p",x:205,y:140},
    {t:"p",x:110,y:52,team:"b"},{t:"p",x:160,y:112,team:"b"},{t:"p",x:212,y:80,team:"b"},{t:"p",x:238,y:118,team:"b"},{t:"p",x:62,y:98,team:"b"},
-   {t:"a",k:"pass",d:"M78 64 L122 87"},{t:"a",k:"pass",d:"M138 86 L170 50"},{t:"a",k:"run",d:"M211 134 Q238 125 252 104"},{t:"a",k:"pass",d:"M184 52 L246 98"},{t:"a",k:"shot",d:"M255 98 L266 92"}]}
+   {t:"a",k:"pass",d:"M78 64 L122 87"},{t:"a",k:"pass",d:"M138 86 L170 50"},{t:"a",k:"run",d:"M211 134 Q238 125 252 104"},{t:"a",k:"pass",d:"M184 52 L246 98"},{t:"a",k:"shot",d:"M255 98 L266 92"}]},
+ {id:"keeper-rondspelen",cat:"Keeper",title:"Keeper: meebewegen bij rondspelen",int:"middel–hoog",min:12,kids:"keeper en 3 tot 4 spelers",
+  mat:["stick per speler","een emmer ballen","1 doel met keeper"],
+  doel:"Steeds goed staan terwijl de bal rondgaat: met kleine stappen meeschuiven, frontaal naar de bal en klaar voor het schot.",
+  stappen:["3 tot 4 spelers staan in een boog voor en naast het doel, op 6 tot 9 meter.","Ze passen in willekeurige volgorde naar elkaar. Elke speler mag direct of na een aanname schieten.","De keeper schuift bij elke pass mee en staat steeds frontaal naar de bal, met het doel goed afgedekt.","Beurten van 30 tot 45 seconden, daarna rust. De spelers houden het tempo hoog."],
+  tips:["Keeper: verplaats je terwijl de bal onderweg is, niet pas als hij aankomt.","Spelers: schiet niet na elke pass, anders kan de keeper het schot raden."],
+  makkelijker:["Vaste volgorde van passen.","Alleen schieten na een aanname."],
+  moeilijker:["Eén speler staat achter het doel en mag een pass voor het doel geven.","Een extra speler staat als screen voor de keeper."],
+  fig:[{t:"goal",x:278,y:90},{t:"p",x:266,y:80,team:"j"},
+   {t:"p",x:204,y:34,ball:1},{t:"p",x:180,y:90},{t:"p",x:204,y:146},
+   {t:"a",k:"pass",d:"M206 40 L184 82"},{t:"a",k:"run",d:"M266 80 L264 90"},{t:"a",k:"pass",d:"M184 98 L204 138"},{t:"a",k:"run",d:"M264 90 L264 100"},{t:"a",k:"shot",d:"M210 144 L262 98"},
+   {t:"txt",x:8,y:14,s:"bal gaat rond, keeper schuift mee"}]},
+ {id:"keeper-achter-doel",cat:"Keeper",title:"Keeper: bal achter het doel",int:"middel–hoog",min:12,kids:"keeper, 1 speler achter het doel en 2 schutters",
+  mat:["stick per speler","een emmer ballen","1 doel met keeper"],
+  doel:"Van paal naar paal meegaan als de bal achter het doel is, en tegelijk zien waar het gevaar voor het doel staat.",
+  stappen:["Zet het doel zo neer dat er achter het doel ruimte is om te lopen.","Eén speler dribbelt met de bal achter het doel langs, van de ene kant naar de andere.","Twee schutters staan voor het doel op ongeveer 6 meter, links en rechts van het midden.","De keeper volgt de bal van paal naar paal en kijkt over zijn schouder naar de schutters.","De speler achter het doel geeft een pass voor het doel en de schutter schiet direct. Na 6 acties draaien de rollen door."],
+  tips:["Keeper: sta tegen de paal aan de kant van de bal, zonder gat tussen paal en been.","Draai je hoofd, niet je hele lichaam, om de schutters te zien."],
+  makkelijker:["De pass gaat altijd naar dezelfde schutter.","De speler achter het doel loopt rustig."],
+  moeilijker:["De speler kiest zelf: pass naar de eerste of de tweede paal, of zelf om het doel heen.","Een verdediger voor het doel probeert de pass te onderscheppen."],
+  fig:[{t:"goal",x:248,y:90},{t:"p",x:242,y:78,team:"j"},{t:"p",x:272,y:56,ball:1},
+   {t:"p",x:196,y:72,team:"b"},{t:"p",x:196,y:112,team:"b"},
+   {t:"a",k:"dribble",d:"M276 62 Q296 90 274 120"},{t:"a",k:"run",d:"M242 78 L242 102"},{t:"a",k:"pass",d:"M268 124 L204 112"},{t:"a",k:"shot",d:"M204 108 L238 92"},
+   {t:"txt",x:8,y:14,s:"keeper volgt de bal achter het doel"}]},
+ {id:"keeper-rebound",cat:"Keeper",title:"Keeper: reboundwedstrijd",int:"middel",min:12,kids:"keeper en 4 tot 8 spelers",
+  mat:["stick per speler","een emmer ballen","1 doel met keeper"],
+  doel:"Rebounds vastpakken of wegwerken, in een wedstrijd tegen de veldspelers.",
+  stappen:["Leg de ballen op een rij op 4 tot 5 meter voor het doel. Eén schutter staat recht voor het doel, de andere spelers staan in twee rijen naast het doel.","De schutter schiet. Pakt de keeper de bal vast of gaat het schot naast: punt voor de keeper.","Scoort de schutter: punt voor de spelers. Laat de keeper de bal los, dan krijgen de spelers uit de rijen één pass en één schot op de rebound.","Bij een punt voor de keeper komt er een nieuwe schutter, bij een punt voor de spelers blijft hij staan. Wie het eerst 10 punten heeft, wint."],
+  tips:["Keeper: klem de bal of werk hem weg naar de zijkant, laat hem niet terug voor het doel vallen.","Spelers: volg elk schot, een rebound komt snel."],
+  makkelijker:["Zachter schieten, van iets verder weg.","Alleen de schutter zelf mag de rebound nemen."],
+  moeilijker:["Op de rebound mag direct worden geschoten, zonder pass.","Een extra speler staat als screen voor de keeper."],
+  fig:[{t:"goal",x:278,y:90},{t:"p",x:266,y:90,team:"j"},{t:"ball",x:196,y:66},{t:"ball",x:196,y:78},{t:"ball",x:196,y:102},{t:"ball",x:196,y:114},
+   {t:"p",x:200,y:90,ball:1},{t:"p",x:252,y:30,team:"b"},{t:"p",x:252,y:150,team:"b"},
+   {t:"a",k:"shot",d:"M206 92 L262 94"},{t:"a",k:"run",d:"M250 36 L240 66"},{t:"a",k:"shot",d:"M242 72 L264 84"},
+   {t:"txt",x:8,y:14,s:"punt voor de keeper of voor de spelers"}]}
 ];
 
-const CAT_ORDER=["Warming-up","Passen","Schieten","Omschakelen","Partijvorm","Spel","Speciale situaties"];
+const CAT_ORDER=["Warming-up","Passen","Schieten","Keeper","Omschakelen","Partijvorm","Spel","Speciale situaties"];
 EX.sort((a,b)=>CAT_ORDER.indexOf(a.cat)-CAT_ORDER.indexOf(b.cat));
 const CATS=["Alles",...new Set(EX.map(e=>e.cat))];
 const phaseOf=cat=>cat==="Warming-up"?"warm":(cat==="Spel"||cat==="Speciale situaties")?"partij":"kern";
@@ -613,6 +646,9 @@ const PH_LABEL={warm:"Warming-up",kern:"Kern",partij:"Afsluiting"};
 
 /* materiaal per oefening, afhankelijk van aantal spelers n */
 const NEED={
+  "keeper-rondspelen":n=>({stick:4,bal:12,doel:1}),
+  "keeper-achter-doel":n=>({stick:3,bal:12,doel:1}),
+  "keeper-rebound":n=>({stick:n,bal:12,doel:1}),
   "rondo":n=>{const g=Math.ceil(n/6);return{stick:n,bal:3*g,pion:4*g,hesje:2*g}},
   "vierkant":n=>{const g=Math.ceil(n/5);return{stick:n,bal:2*g,pion:4*g}},
   "schot-beweging":n=>({stick:n,bal:Math.max(15,n),pion:2,doel:1}),
@@ -640,7 +676,7 @@ let N=16;
 try{const v=parseInt(localStorage.getItem("u18-n"),10);if(v>=4&&v<=40)N=v}catch(e){}
 function needText(id){const r=NEED[id](N);return ITEMS.filter(([k])=>r[k]).map(([k,,s,p])=>`${r[k]} ${r[k]===1?s:p}`).join(", ")}
 
-const MAAT={"rondo":"10 × 10 m per vak","vierkant":"8 × 8 m per groepje","schot-beweging":"20 × 20 m","rebound":"12 × 20 m","mikko-1":"20 × 20 m","mikko-2":"20 × 20 m","mikko-3":"20 × 20 m","twee-een":"40 × 20 m","drie-twee":"40 × 20 m","drie-drie":"20 × 10 m per veldje","lijnteam":"20 × 10 m","powerplay":"20 × 20 m","partij-thema":"40 × 20 m","duel":"40 × 20 m","drie-doelen":"20 × 20 m","parcours":"40 × 20 m","draai-180":"40 × 20 m","halve-cirkel":"20 × 20 m","pionnen-stick":"40 × 20 m","nummer-passen":"20 × 20 m per vak","minuut-passen":"20 × 20 m"};
+const MAAT={"keeper-rondspelen":"boog op 6–9 m","keeper-achter-doel":"half veld, ruimte achter het doel","keeper-rebound":"4–5 m voor het doel","rondo":"10 × 10 m per vak","vierkant":"8 × 8 m per groepje","schot-beweging":"20 × 20 m","rebound":"12 × 20 m","mikko-1":"20 × 20 m","mikko-2":"20 × 20 m","mikko-3":"20 × 20 m","twee-een":"40 × 20 m","drie-twee":"40 × 20 m","drie-drie":"20 × 10 m per veldje","lijnteam":"20 × 10 m","powerplay":"20 × 20 m","partij-thema":"40 × 20 m","duel":"40 × 20 m","drie-doelen":"20 × 20 m","parcours":"40 × 20 m","draai-180":"40 × 20 m","halve-cirkel":"20 × 20 m","pionnen-stick":"40 × 20 m","nummer-passen":"20 × 20 m per vak","minuut-passen":"20 × 20 m"};
 EX.forEach(e=>e.maat=MAAT[e.id]);
 const slotPh=k=>k==="warmup"?"warm":k==="partij"?"partij":"kern";
 
@@ -652,6 +688,9 @@ const r1=v=>String(Math.round(v*10)/10).replace(".",",");
 const sq=(c,z)=>{const x=c.cx-z/2,y=c.cy-z/2;return[{t:"zone",x,y,w:z,h:z},{t:"cone",x,y},{t:"cone",x:x+z,y},{t:"cone",x,y:y+z},{t:"cone",x:x+z,y:y+z}]};
 const GOALS=[{t:"goal",x:3.5,y:10,side:"l"},{t:"goal",x:36.5,y:10,side:"r"}];
 const HALL={
+  "keeper-rondspelen":()=>({items:[GOALS[1],{t:"spot",x:30,y:4},{t:"spot",x:27,y:10},{t:"spot",x:30,y:16}],note:"1 doel, 3 tot 4 spelers in een boog op 6 tot 9 m"}),
+  "keeper-achter-doel":()=>({items:[{t:"goal",x:34,y:10,side:"r"},{t:"spot",x:37.5,y:6},{t:"spot",x:28,y:8},{t:"spot",x:28,y:12}],note:"1 doel minstens 3 m van de boarding, zodat je achter het doel kunt lopen; 2 schutters op ongeveer 6 m"}),
+  "keeper-rebound":()=>({items:[GOALS[1],{t:"spot",x:31,y:10},{t:"spot",x:35,y:4},{t:"spot",x:35,y:16},{t:"lbl",x:31,y:12.4,s:"ballen"}],note:"1 doel, ballen op een rij op 4 tot 5 m, spelers in 2 rijen naast het doel"}),
   "rondo":n=>{const g=Math.ceil(n/6),cols=g<=3?g:Math.ceil(g/2),it=[];let z=10;
     gridC(g,cols).forEach(c=>{z=Math.min(10,c.cw-1.5,c.ch-1.5);it.push(...sq(c,z))});return{items:it,note:`${g} ${g===1?"vak":"vakken"} van ${r1(z)} × ${r1(z)} m`}},
   "vierkant":n=>{const g=Math.ceil(n/5),cols=g<=4?g:Math.ceil(g/2),it=[];let z=8;
@@ -778,6 +817,9 @@ function setN(v){v=Math.max(4,Math.min(40,v||0));N=v;try{localStorage.setItem("u
 
 /* animatie per pijl, in volgorde van de pijlen in de tekening: starttijd in seconden */
 const ANIM={
+  "keeper-rondspelen":[{at:0},{at:.3},{at:1},{at:1.3},{at:2.1}],
+  "keeper-achter-doel":[{at:0},{at:.3},{at:2.3},{at:3.2}],
+  "keeper-rebound":[{at:0},{at:.7},{at:1.8}],
   "rondo":[{at:0},{at:1},{at:.3}],
   "vierkant":[{at:0},{at:.2},{at:1}],
   "schot-beweging":[{at:0},{at:2.3},{at:2.4},{at:3.3},{at:4.3}],

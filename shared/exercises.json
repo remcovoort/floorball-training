@@ -301,6 +301,18 @@
    "title": "Muurbal",
    "cat": "Spel",
    "phase": "Afsluiting"
+  },
+  {
+   "id": "keeper-muur",
+   "title": "Keeper: muurballen",
+   "cat": "Keeper",
+   "phase": "Kern"
+  },
+  {
+   "id": "keeper-werpen",
+   "title": "Keeper: vangen en werpen",
+   "cat": "Keeper",
+   "phase": "Kern"
   }
  ],
  "o14": [
@@ -399,6 +411,24 @@
    "title": "Grootveldpartij met thema",
    "cat": "Spel",
    "phase": "Afsluiting"
+  },
+  {
+   "id": "keeper-draaien",
+   "title": "Keeper: draaien en redden",
+   "cat": "Keeper",
+   "phase": "Kern"
+  },
+  {
+   "id": "keeper-nummer",
+   "title": "Keeper: nummerschot",
+   "cat": "Keeper",
+   "phase": "Kern"
+  },
+  {
+   "id": "keeper-uitwerpen",
+   "title": "Keeper: redden en uitwerpen",
+   "cat": "Keeper",
+   "phase": "Kern"
   }
  ],
  "o18": [
@@ -527,6 +557,24 @@
    "title": "Powerplay en boxplay",
    "cat": "Speciale situaties",
    "phase": "Afsluiting"
+  },
+  {
+   "id": "keeper-rondspelen",
+   "title": "Keeper: meebewegen bij rondspelen",
+   "cat": "Keeper",
+   "phase": "Kern"
+  },
+  {
+   "id": "keeper-achter-doel",
+   "title": "Keeper: bal achter het doel",
+   "cat": "Keeper",
+   "phase": "Kern"
+  },
+  {
+   "id": "keeper-rebound",
+   "title": "Keeper: reboundwedstrijd",
+   "cat": "Keeper",
+   "phase": "Kern"
   }
  ]
 }

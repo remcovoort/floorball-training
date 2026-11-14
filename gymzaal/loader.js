@@ -15,7 +15,7 @@
     texts: ({
       gymles: { title: "Gymles groep 3–6 · Floorball in de gymzaal", eyebrow: "Gymles · groep 3–6", h1: "Floorball in de gymzaal" },
       o12:    { title: "Gymles groep 7–8 · Floorball in de gymzaal", eyebrow: "Gymles · groep 7–8", h1: "Floorball in de gymzaal",
-                lead: "Achttien oefeningen voor groep 7 en 8, kinderen tot 12 jaar: veel balcontacten, korte uitleg en spelvormen met een winnaar, passend in de gymzaal. Zeven vormen komen uit Zweden en Zwitserland en zijn gemarkeerd. Tik op + In de gymles om oefeningen te kiezen en pas per oefening de tijd aan. De genummerde stappen in elke tekening lopen als animatie af." }
+                lead: "Twintig oefeningen voor groep 7 en 8, kinderen tot 12 jaar: veel balcontacten, korte uitleg en spelvormen met een winnaar, passend in de gymzaal. Zeven vormen komen uit Zweden en Zwitserland en zijn gemarkeerd. Tik op + In de gymles om oefeningen te kiezen en pas per oefening de tijd aan. De genummerde stappen in elke tekening lopen als animatie af." }
     })[PROGRAM] || {}
   };
   var inject = '<base href="' + abs("../" + PROGRAM + "/") + '">' +

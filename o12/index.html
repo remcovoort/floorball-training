@@ -262,7 +262,7 @@ svg.hall{width:100%;height:auto;display:block}
     <a class="fb-home" href="../">← Terug naar startpagina</a>
     <div class="eyebrow">Jeugdtraining · 10–12 jaar · kleinveld</div>
     <h1>Floorball O12 training</h1>
-    <p class="lead">Achttien oefeningen voor kinderen tot 12 jaar op kleinveld: veel balcontacten, korte uitleg en spelvormen met een winnaar. Zeven vormen komen uit Zweden en Zwitserland en zijn gemarkeerd. Tik op + In de training om oefeningen te kiezen en pas per oefening de tijd aan. De genummerde stappen in elke tekening lopen als animatie af.</p>
+    <p class="lead">Twintig oefeningen voor kinderen tot 12 jaar op kleinveld: veel balcontacten, korte uitleg en spelvormen met een winnaar. Zeven vormen komen uit Zweden en Zwitserland en zijn gemarkeerd. Tik op + In de training om oefeningen te kiezen en pas per oefening de tijd aan. De genummerde stappen in elke tekening lopen als animatie af.</p>
     <button type="button" class="linkbtn" id="open-afs">Accenten voor deze leeftijd</button>
   </header>
 
@@ -544,10 +544,31 @@ const EX = [
    {t:"p",x:190,y:66,team:"b"},{t:"p",x:240,y:96,team:"b"},{t:"p",x:130,y:100,team:"b"},
    {t:"a",k:"dribble",d:"M156 72 Q176 50 206 50"},{t:"a",k:"run",d:"M214 116 Q244 104 262 96"},{t:"a",k:"pass",d:"M212 50 L280 84"},{t:"a",k:"pass",d:"M280 88 L268 94"},
    {t:"txt",x:8,y:14,s:"tegen de muur van blauw spelen"},{t:"txt",x:120,y:176,s:"rood raakt de bal als eerste = punt"}]}
-
+,
+ {id:"keeper-muur",cat:"Keeper",title:"Keeper: muurballen",int:"laag",min:8,kids:"keepers apart, naast de groep",
+  mat:["1 bal per keeper","een muur of de boarding","keepershandschoenen (aanrader)"],
+  doel:"Snel zien en vangen: oog-handcoördinatie en reactie voor jonge keepers.",
+  stappen:["De keeper staat 1 tot 3 meter van de muur in zijn basishouding: knieën licht gebogen, handen voor het lichaam.","Gooi de bal tegen de muur en vang hem met dezelfde hand.","Daarna gooien met de ene hand en vangen met de andere, en daarna vangen met twee handen.","Gooi op ooghoogte, zodat de bal ook op ooghoogte terugkomt.","Tel hoe vaak het in 30 seconden lukt zonder dat de bal valt."],
+  tips:["Blijf in je keepershouding staan, ook tussen de worpen door.","Kijk de bal tot in je handen."],
+  makkelijker:["Verder van de muur af staan.","Vangen na één stuit."],
+  moeilijker:["Dichter bij de muur staan.","Een tweede keeper gooit van achteren tegen de muur; reageer pas als je de bal ziet."],
+  fig:[{t:"line",d:"M284 16 L284 164"},{t:"p",x:226,y:58,team:"j",ball:1},{t:"p",x:226,y:124,team:"j",ball:1},
+   {t:"a",k:"pass",d:"M234 52 Q258 34 280 40"},{t:"a",k:"pass",d:"M280 50 Q262 76 234 64"},{t:"a",k:"pass",d:"M234 118 Q258 100 280 106"},{t:"a",k:"pass",d:"M280 116 Q262 142 234 130"},
+   {t:"txt",x:8,y:14,s:"muur of boarding, 1–3 m afstand"}]},
+ {id:"keeper-werpen",cat:"Keeper",title:"Keeper: vangen en werpen",int:"laag–middel",min:10,kids:"2 keepers, of keeper en trainer",
+  mat:["1 bal","4 pionnen"],
+  doel:"De bal veilig vangen en daarna snel en precies uitwerpen.",
+  stappen:["Twee keepers staan op ongeveer 10 meter van elkaar. Zet voor elke keeper een poortje van twee pionnen.","Rol de bal laag over de vloer door het poortje van de ander. Die vangt in zijn basishouding en rolt terug.","Daarna stuitworpen: de bal stuit één keer voordat de ander hem vangt.","Laatste ronde: na het vangen zijwaarts op de knieën verplaatsen, opstaan en terugwerpen."],
+  tips:["Werp onderhands en laag, dan is de bal makkelijk aan te nemen.","In een wedstrijd werp je naar een vrije medespeler, vaak naar de zijkant. Oefen dus ook schuin werpen."],
+  makkelijker:["Op 5 meter van elkaar.","Alleen rollen, geen stuitworpen."],
+  moeilijker:["Op 15 meter van elkaar, met een smaller poortje.","Een speler loopt langs de zijkant; de keeper werpt de bal voor hem uit in de loop."],
+  fig:[{t:"cone",x:84,y:76},{t:"cone",x:84,y:104},{t:"cone",x:216,y:76},{t:"cone",x:216,y:104},
+   {t:"p",x:60,y:90,team:"j",ball:1},{t:"p",x:240,y:90,team:"j"},
+   {t:"a",k:"pass",d:"M68 88 L232 88"},{t:"a",k:"pass",d:"M232 94 Q150 122 68 94"},
+   {t:"txt",x:8,y:14,s:"10 m, door het poortje rollen of stuiten"}]}
 ];
 
-const CAT_ORDER=["Warming-up","Passen","Vaardigheid","Schieten","Duels","Omschakelen","Partijvorm","Spel"];
+const CAT_ORDER=["Warming-up","Passen","Vaardigheid","Schieten","Keeper","Duels","Omschakelen","Partijvorm","Spel"];
 EX.sort((a,b)=>CAT_ORDER.indexOf(a.cat)-CAT_ORDER.indexOf(b.cat));
 const CATS=["Alles",...new Set(EX.map(e=>e.cat))];
 const phaseOf=cat=>cat==="Warming-up"?"warm":(cat==="Spel"||cat==="Speciale situaties")?"partij":"kern";
@@ -555,6 +576,8 @@ const PH_LABEL={warm:"Warming-up",kern:"Kern",partij:"Afsluiting"};
 
 /* materiaal per oefening, afhankelijk van aantal spelers n */
 const NEED={
+  "keeper-muur":n=>({bal:2}),
+  "keeper-werpen":n=>({bal:1,pion:4}),
   "opbouw":n=>({stick:n,bal:10,doel:2,hesje:Math.ceil(n/2)}),
   "tikspel":n=>({stick:n,bal:Math.max(1,n-2),pion:4,hesje:2}),
   "dribbel-estafette":n=>{const g=Math.ceil(n/4);return{stick:n,bal:g,pion:5*g}},
@@ -591,7 +614,7 @@ let N=12;
 try{const v=parseInt(localStorage.getItem("o12-n"),10);if(v>=4&&v<=40)N=v}catch(e){}
 function needText(id){const r=NEED[id](N);return ITEMS.filter(([k])=>r[k]).map(([k,,s,p])=>`${r[k]} ${r[k]===1?s:p}`).join(", ")}
 
-const MAAT={"rondo":"10 × 10 m per vak","vierkant":"8 × 8 m per groepje","schot-beweging":"20 × 20 m","rebound":"12 × 20 m","mikko-1":"20 × 20 m","mikko-2":"20 × 20 m","mikko-3":"20 × 20 m","twee-een":"40 × 20 m","drie-twee":"40 × 20 m","drie-drie":"20 × 10 m per veldje","lijnteam":"20 × 10 m","powerplay":"20 × 20 m","partij-thema":"40 × 20 m","duel":"40 × 20 m","drie-doelen":"20 × 20 m","parcours":"40 × 20 m","pionnen-stick":"40 × 20 m","nummer-passen":"20 × 20 m per vak","minuut-passen":"20 × 20 m","tikspel":"heel veld","rondo":"8 × 8 m per vak","vierkant":"6 × 6 m per groepje","minuut-passen":"4 m tussen de pionnen","pionnen-stick":"5 m tussen werker en aanspeler","dribbel-estafette":"rij van ca. 15 m","schot-beweging":"half veld","twee-een":"heel kleinveld","drie-drie":"half kleinveld per veldje","lijnteam":"half kleinveld","partij-klein":"heel kleinveld","koningsbal":"heel kleinveld","muurbal":"heel veld","doelen-verzamelen":"hele zaal","een-een-poortjes":"klein veldje per 4 spelers","hinderbaan":"baan van ca. 15 m","twee-twee-dwars":"dwars over het veld","vaardigheidsproef":"3 stations"};
+const MAAT={"keeper-muur":"1–3 m van de muur","keeper-werpen":"10 m tussen de keepers","rondo":"10 × 10 m per vak","vierkant":"8 × 8 m per groepje","schot-beweging":"20 × 20 m","rebound":"12 × 20 m","mikko-1":"20 × 20 m","mikko-2":"20 × 20 m","mikko-3":"20 × 20 m","twee-een":"40 × 20 m","drie-twee":"40 × 20 m","drie-drie":"20 × 10 m per veldje","lijnteam":"20 × 10 m","powerplay":"20 × 20 m","partij-thema":"40 × 20 m","duel":"40 × 20 m","drie-doelen":"20 × 20 m","parcours":"40 × 20 m","pionnen-stick":"40 × 20 m","nummer-passen":"20 × 20 m per vak","minuut-passen":"20 × 20 m","tikspel":"heel veld","rondo":"8 × 8 m per vak","vierkant":"6 × 6 m per groepje","minuut-passen":"4 m tussen de pionnen","pionnen-stick":"5 m tussen werker en aanspeler","dribbel-estafette":"rij van ca. 15 m","schot-beweging":"half veld","twee-een":"heel kleinveld","drie-drie":"half kleinveld per veldje","lijnteam":"half kleinveld","partij-klein":"heel kleinveld","koningsbal":"heel kleinveld","muurbal":"heel veld","doelen-verzamelen":"hele zaal","een-een-poortjes":"klein veldje per 4 spelers","hinderbaan":"baan van ca. 15 m","twee-twee-dwars":"dwars over het veld","vaardigheidsproef":"3 stations"};
 EX.forEach(e=>e.maat=MAAT[e.id]);
 const slotPh=k=>k==="warmup"?"warm":k==="partij"?"partij":"kern";
 
@@ -603,6 +626,8 @@ const r1=v=>String(Math.round(v*10)/10).replace(".",",");
 const sq=(c,z)=>{const x=c.cx-z/2,y=c.cy-z/2;return[{t:"zone",x,y,w:z,h:z},{t:"cone",x,y},{t:"cone",x:x+z,y},{t:"cone",x,y:y+z},{t:"cone",x:x+z,y:y+z}]};
 const GOALS=[{t:"goal",x:3.5,y:10,side:"l"},{t:"goal",x:36.5,y:10,side:"r"}];
 const HALL={
+  "keeper-muur":()=>({items:[{t:"line",x1:39.4,y1:3,x2:39.4,y2:17},{t:"spot",x:37,y:7},{t:"spot",x:37,y:13},{t:"lbl",x:35,y:10.4,s:"muur"}],note:"langs de muur of boarding, ongeveer 3 m per keeper; de rest van het veld blijft vrij"}),
+  "keeper-werpen":()=>({items:[{t:"spot",x:14,y:10},{t:"spot",x:26,y:10},{t:"cone",x:16,y:8.8},{t:"cone",x:16,y:11.2},{t:"cone",x:24,y:8.8},{t:"cone",x:24,y:11.2}],note:"2 keepers op 10 m van elkaar, elk met een poortje van 2 pionnen voor zich"}),
   "opbouw":()=>({items:[...GOALS,{t:"line",x1:20,y1:1,x2:20,y2:19},{t:"spot",x:7,y:3},{t:"spot",x:7,y:17},{t:"spot",x:12,y:10},{t:"spot",x:16,y:6},{t:"spot",x:16,y:14},{t:"lbl",x:20,y:19.9,s:"middenlijn"}],
     note:"heel veld: keeper en 3 spelers bouwen op vanaf eigen doel, 2 verdedigers zetten druk; over de middenlijn is een punt"}),
   "tikspel":()=>({items:[{t:"zone",x:1,y:1,w:38,h:18},{t:"cone",x:1,y:1},{t:"cone",x:39,y:1},{t:"cone",x:1,y:19},{t:"cone",x:39,y:19}],note:"heel veld, pionnen in de hoeken als grens, 2 tikkers met hesje"}),
@@ -749,6 +774,8 @@ function setN(v){v=Math.max(4,Math.min(40,v||0));N=v;try{localStorage.setItem("o
 
 /* animatie per pijl, in volgorde van de pijlen in de tekening: starttijd in seconden */
 const ANIM={
+  "keeper-muur":[{at:0},{at:.9},{at:.4},{at:1.3}],
+  "keeper-werpen":[{at:0},{at:1.2}],
   "opbouw":[{at:0},{at:.3},{at:.5},{at:2.2},{at:3.2}],
   "tikspel":[{at:0},{at:.4},{at:.2},{at:.6}],
   "dribbel-estafette":[{at:0},{at:.3},{at:2.5},{at:2.8}],
