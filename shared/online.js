@@ -305,8 +305,14 @@ header.fb-has-logo>:not(.fb-logo-a):not(.fb-home){padding-right:clamp(64px,15vw,
 
   function start() {
     const head = document.querySelector("header");
-    if (HOSTED && head && !head.querySelector(".fb-home")) head.insertAdjacentHTML("afterbegin", `<a class="fb-home" href="../">← Terug naar startpagina</a>`);
-    if (HOSTED && head && !head.querySelector(".fb-logo")) { head.classList.add("fb-has-logo"); head.insertAdjacentHTML("afterbegin", `<a href="../" class="fb-logo-a" aria-label="Naar de startpagina"><img class="fb-logo" src="../icons/ufc-logo.png" alt="UFC Utrecht" width="155" height="224"></a>`); }
+    /* Losse app (bijv. gymzaal/): eigen logo, geen terugknop naar de startpagina. */
+    const APP = window.FB_APP;
+    if (APP && head) {
+      head.querySelectorAll(".fb-home").forEach(a => a.remove());
+      if (!head.querySelector(".fb-logo")) { head.classList.add("fb-has-logo"); head.insertAdjacentHTML("afterbegin", `<span class="fb-logo-a"><img class="fb-logo" src="${APP.logo}" alt="${esc(APP.logoAlt || "")}"></span>`); }
+    }
+    if (HOSTED && !APP && head && !head.querySelector(".fb-home")) head.insertAdjacentHTML("afterbegin", `<a class="fb-home" href="../">← Terug naar startpagina</a>`);
+    if (HOSTED && !APP && head && !head.querySelector(".fb-logo")) { head.classList.add("fb-has-logo"); head.insertAdjacentHTML("afterbegin", `<a href="../" class="fb-logo-a" aria-label="Naar de startpagina"><img class="fb-logo" src="../icons/ufc-logo.png" alt="UFC Utrecht" width="155" height="224"></a>`); }
     decorate();
     const mo = new MutationObserver(decorate);
     ["grid", "dlg-body", "filters"].forEach(id => { const el = document.getElementById(id); if (el) mo.observe(el, { childList: true }); });

@@ -1,0 +1,37 @@
+<!doctype html>
+<html lang="nl">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">
+<title>Floorball in de gymzaal</title>
+<link rel="manifest" href="manifest.webmanifest">
+<link rel="icon" href="../icons/icon-192.png">
+<style>body{margin:0;background:#eef1ec;font:16px system-ui,sans-serif;color:#5b6672}p{padding:24px;text-align:center}</style>
+</head>
+<body>
+<p id="msg">Oefeningen laden…</p>
+<script>
+/* Losse app "Floorball in de gymzaal".
+   Deze pagina heeft zelf geen oefeningen: hij laadt de gymles-pagina (../gymles/index.html)
+   en toont die met een eigen logo en zonder terugknop. Wijzig de oefeningen dus altijd
+   in gymles/index.html; ze verschijnen dan vanzelf in beide apps.
+   Logo vervangen: zet het nieuwe bestand in icons/ en pas LOGO hieronder aan. */
+(function () {
+  var LOGO = "../icons/gymzaal-logo.svg", LOGO_ALT = "Floorball in de gymzaal";
+  var inject = '<base href="../gymles/">' +
+    '<script>window.FB_APP={id:"gymzaal",logo:' + JSON.stringify(LOGO) + ',logoAlt:' + JSON.stringify(LOGO_ALT) + '}<\/script>';
+  fetch("../gymles/index.html", { cache: "no-cache" })
+    .then(function (r) { if (!r.ok) throw new Error(r.status); return r.text(); })
+    .then(function (html) {
+      html = html
+        .replace(/<head>/i, "<head>" + inject)
+        .replace('href="../manifest.webmanifest"', 'href="../gymzaal/manifest.webmanifest"');
+      document.open(); document.write(html); document.close();
+    })
+    .catch(function () {
+      document.getElementById("msg").textContent = "De oefeningen konden niet worden geladen. Controleer je internetverbinding en probeer het opnieuw.";
+    });
+})();
+</script>
+</body>
+</html>
