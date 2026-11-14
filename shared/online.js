@@ -309,7 +309,8 @@ header.fb-has-logo>:not(.fb-logo-a):not(.fb-home){padding-right:clamp(64px,15vw,
     const APP = window.FB_APP;
     if (APP && head) {
       head.querySelectorAll(".fb-home").forEach(a => a.remove());
-      if (!head.querySelector(".fb-logo")) { head.classList.add("fb-has-logo"); head.insertAdjacentHTML("afterbegin", `<span class="fb-logo-a"><img class="fb-logo" src="${APP.logo}" alt="${esc(APP.logoAlt || "")}"></span>`); }
+      if (APP.home) head.insertAdjacentHTML("afterbegin", `<a class="fb-home" href="${APP.home}">← Terug naar startpagina</a>`);
+      if (!head.querySelector(".fb-logo")) { head.classList.add("fb-has-logo"); head.insertAdjacentHTML("afterbegin", `<a href="${APP.home || "#"}" class="fb-logo-a" aria-label="Naar de startpagina"><img class="fb-logo" src="${APP.logo}" alt="${esc(APP.logoAlt || "")}"></a>`); }
     }
     if (HOSTED && !APP && head && !head.querySelector(".fb-home")) head.insertAdjacentHTML("afterbegin", `<a class="fb-home" href="../">← Terug naar startpagina</a>`);
     if (HOSTED && !APP && head && !head.querySelector(".fb-logo")) { head.classList.add("fb-has-logo"); head.insertAdjacentHTML("afterbegin", `<a href="../" class="fb-logo-a" aria-label="Naar de startpagina"><img class="fb-logo" src="../icons/ufc-logo.png" alt="UFC Utrecht" width="155" height="224"></a>`); }
