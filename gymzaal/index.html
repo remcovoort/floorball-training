@@ -78,8 +78,8 @@ scrollTo(0,0);addEventListener("load",()=>scrollTo(0,0));addEventListener("pages
 /* Nieuw programma toevoegen: zet hier een regel bij en maak de map met dezelfde naam. */
 /* Programma's in de gymzaal-app. Elk programma heeft een map gymzaal/<id>/ die de pagina uit de training-app inlaadt. */
 const PROGRAMS=[
-  {id:"gymles",age:"Basisschool",title:"Gymles",text:"Floorball in de gymzaal: veilig spelen met de stick, met zaalindeling per oefening.",color:"#2f6fdb"},
-  {id:"o12",age:"10–12 jaar",title:"O12",text:"Veel balcontacten, korte uitleg en spelvormen met een winnaar.",color:"#b8325a"}
+  {id:"gymles",age:"Gymles",title:"Groep 3–6",go:"groep 3–6",text:"Floorball in de gymzaal: veilig spelen met de stick, met zaalindeling per oefening.",color:"#2f6fdb"},
+  {id:"o12",age:"Gymles",title:"Groep 7–8",go:"groep 7–8",text:"Veel balcontacten, korte uitleg en spelvormen met een winnaar.",color:"#b8325a"}
 ];
 const cardTop=p=>`<span class="top"><span class="age">${p.age}</span><span class="count" data-prog="${p.id}"></span></span>`;
 document.getElementById("progs").innerHTML=PROGRAMS.map(p=>p.soon
