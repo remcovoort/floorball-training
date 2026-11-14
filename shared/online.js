@@ -315,6 +315,7 @@ header.fb-has-logo>:not(.fb-logo-a):not(.fb-home){padding-right:clamp(64px,15vw,
 .mini button,.les-list .mini button{width:44px;height:44px}
 .close{width:44px;height:44px}
 .fb-search input{min-height:40px}
+.filters .fb-tools{flex-basis:460px}
 .meta .m2{border:none;padding:0}
 .card .num{margin-bottom:-4px}
 .tile.zero{display:none}
