@@ -333,14 +333,14 @@ header.fb-has-logo>:not(.fb-logo-a):not(.fb-home){padding-right:clamp(64px,15vw,
   .fchips{display:flex;gap:8px;flex:1 1 100%;flex-wrap:nowrap;overflow-x:auto;margin-inline:-16px;padding-inline:16px;scrollbar-width:none;-webkit-mask-image:linear-gradient(90deg,#000 88%,transparent);mask-image:linear-gradient(90deg,#000 88%,transparent)}
   .fchips::-webkit-scrollbar{display:none}
   .fchips>*{flex:none}
-  .filters .fb-tools{flex:1 1 100%;margin-left:0}
-  .filters .fb-search{max-width:none}
+  .filters .fb-tools{flex:1 1 100%;margin-left:0;flex-wrap:wrap;justify-content:flex-start;row-gap:8px}
+  .filters .fb-search{max-width:none;flex:1 1 100%}
   .lesbar{padding-top:8px;padding-bottom:calc(8px + env(safe-area-inset-bottom,0px))}
-  .lesbar .in{display:grid;grid-template-columns:1fr;gap:6px}
+  body .lesbar .in{display:grid;grid-template-columns:1fr;gap:6px}
   .lesbar strong{font-size:18px}
   .lesbar .bar-sub{display:none}
-  .barbtns{display:grid;grid-template-columns:repeat(3,1fr);gap:6px}
-  .lesbar .btn{padding:6px 4px;font-size:14px;white-space:nowrap}
+  body .lesbar .barbtns{display:grid;grid-template-columns:repeat(3,1fr);gap:6px}
+  body .lesbar .btn{padding:6px 4px;font-size:14px;white-space:nowrap;text-align:center}
   .lesbar .lg{display:none}
   body{padding-bottom:110px}
 }`;
