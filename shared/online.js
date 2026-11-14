@@ -310,7 +310,7 @@ header.fb-has-logo>:not(.fb-logo-a):not(.fb-home){padding-right:clamp(64px,15vw,
     if (APP && head) {
       const T = APP.texts || {}, W = APP.words, set = (sel, t) => { const el = document.querySelector(sel); if (el && t) el.textContent = t; };
       if (T.title) document.title = T.title;
-      set("header .eyebrow", T.eyebrow); set("header h1", T.h1);
+      set("header .eyebrow", T.eyebrow); set("header h1", T.h1); set("header .lead", T.lead);
       if (W) {
         set("#open-mat", W.btnLabel); set("#mat-title", W.title);
         const mt = document.getElementById("mat-title"), num = mt && mt.previousElementSibling; if (num) num.textContent = W.Unit + "overzicht";
