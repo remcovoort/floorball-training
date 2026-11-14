@@ -31,6 +31,7 @@ Alles wat op `main` komt, staat binnen een paar minuten live.
 | --- | --- |
 | `index.html` | Startpagina. Programma's staan in de lijst `PROGRAMS`. |
 | `gymles/`, `o12/`, `o14/`, `o18/` | Eén programma per map, elk één groot `index.html` met de oefeningen in `const EX = [...]`. |
+| `gymzaal/` | Losse app "Floorball in de gymzaal": laadt `gymles/index.html` in met een eigen logo (`icons/gymzaal-logo.svg`), eigen manifest en zonder terugknop. Bevat zelf geen oefeningen; wijzig die altijd in `gymles/`. |
 | `overzicht/` | Scores en toelichtingen van alle gebruikers, uit Supabase. |
 | `shared/online.js` | Gedeeld voor alle programmapagina's: sterren, toelichting, zoeken, sterrenfilter, logo, terug-knop, service worker. |
 | `shared/shim.js` | Pdf opslaan in de browser (vervangt de Claude-artifactfunctie). |
