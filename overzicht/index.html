@@ -65,7 +65,7 @@ tr.fbrow td{white-space:normal;background:var(--bg)}
 <script src="../shared/config.js"></script>
 <script>
 const CFG=window.FB_CONFIG||{};
-const NAMES={o18:"O18",gymles:"Gymles",o14:"O14",o12:"O12"};
+const NAMES={o18:"O18",gymles:"O10",o14:"O14",o12:"O12"};
 let EXS={},STATS=[],FB=[],OPEN=new Set(),prog="gymles",sortK="avg",sortDir=1;
 const esc=t=>String(t).replace(/[&<>"]/g,c=>({"&":"&amp;","<":"&lt;",">":"&gt;",'"':"&quot;"})[c]);
 const fmt=v=>v==null?"–":(Math.round(v*10)/10).toLocaleString("nl-NL",{minimumFractionDigits:1,maximumFractionDigits:1});

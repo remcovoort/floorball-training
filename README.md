@@ -9,7 +9,7 @@ Open de app: **https://remcovoort.github.io/floorball-training/**
 | Map | Programma |
 | --- | --- |
 | `o18/` | O18, 16–18 jaar |
-| `gymles/` | Floorball in de gymzaal, basisschool groep 3–8 |
+| `gymles/` | O10, basisschool groep 3–8 (map en interne naam blijven `gymles`) |
 | `o14/`, `o12/` | komen later |
 
 Een nieuw programma toevoegen: maak een map met de pagina en zet een regel bij `PROGRAMS` in `index.html`.

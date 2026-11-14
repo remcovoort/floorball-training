@@ -4,7 +4,7 @@
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">
 <title>Floorball training</title>
-<meta name="description" content="Floorball-oefeningen met animaties: stel een training of gymles samen, print hem als pdf en geef oefeningen een score.">
+<meta name="description" content="Floorball-oefeningen met animaties: stel een training samen, print hem als pdf en geef oefeningen een score.">
 <link rel="manifest" href="manifest.webmanifest">
 <meta name="theme-color" content="#141a24">
 <link rel="icon" href="icons/icon-192.png">
@@ -58,7 +58,7 @@ footer a{color:var(--muted)}
 <div class="wrap">
   <header>
     <img class="logo" src="icons/ufc-logo.png" alt="UFC Utrecht" width="155" height="224">
-    <div class="eyebrow">Oefeningen · trainingen · gymlessen</div>
+    <div class="eyebrow">Oefeningen · trainingen</div>
     <h1>Floorball training</h1>
     <p class="lead">Kies een programma. Stel je training samen uit oefeningen met animaties, print hem als pdf en geef oefeningen een score van 1 tot 5 sterren.</p>
     <button type="button" id="install">Zet op je beginscherm</button>
@@ -77,7 +77,7 @@ try{history.scrollRestoration="manual"}catch(e){}
 scrollTo(0,0);addEventListener("load",()=>scrollTo(0,0));addEventListener("pageshow",()=>scrollTo(0,0));
 /* Nieuw programma toevoegen: zet hier een regel bij en maak de map met dezelfde naam. */
 const PROGRAMS=[
-  {id:"gymles",age:"Basisschool",title:"Gymles / O10",go:"Gymles",text:"Floorball in de gymzaal: veilig spelen met de stick, met zaalindeling per oefening.",color:"#2f6fdb"},
+  {id:"gymles",age:"Basisschool",title:"O10",text:"Floorball in de gymzaal: veilig spelen met de stick, met zaalindeling per oefening.",color:"#2f6fdb"},
   {id:"o12",age:"10–12 jaar",title:"O12",text:"Veel balcontacten, korte uitleg en spelvormen met een winnaar.",color:"#b8325a"},
   {id:"o14",age:"13–14 jaar",title:"O14",text:"Overgang naar grootveld: opbouw, omschakelen en partijvormen.",color:"#1d7f8c"},
   {id:"o18",age:"16–18 jaar",title:"O18",text:"Tempo, beslissen onder druk en samenspel. Warming-up, kern en afsluiting.",color:"#d63b2f"}

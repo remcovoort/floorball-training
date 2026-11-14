@@ -1,5 +1,5 @@
 <!doctype html><html lang="nl"><head><meta charset=utf8><meta name=viewport content="width=device-width,initial-scale=1,viewport-fit=cover"><link rel="manifest" href="../manifest.webmanifest"><meta name="theme-color" content="#141a24"><link rel="icon" href="../icons/icon-192.png"><link rel="apple-touch-icon" href="../icons/apple-touch-icon.png"><meta name="apple-mobile-web-app-capable" content="yes"><meta name="mobile-web-app-capable" content="yes"><script>window.FB_PROGRAM="gymles"</script><script src="../shared/shim.js"></script><style>:root{color-scheme:light;box-sizing:border-box;padding-top:env(safe-area-inset-top,0px);padding-bottom:env(safe-area-inset-bottom,0px)}html{scroll-padding-top:env(safe-area-inset-top,0px)}body{margin:0;padding:0;font:14px -apple-system,BlinkMacSystemFont,sans-serif;background:#fff;color:#000}img{max-width:100%}[hidden]:not([hidden=until-found i]){display:none!important}</style></head><body>
-<title>Floorball in de Gymzaal</title>
+<title>Floorball O10 Training</title>
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Barlow+Condensed:wght@600;800&family=Atkinson+Hyperlegible:wght@400;700&display=swap">
 <style>
@@ -262,9 +262,9 @@ svg.hall{width:100%;height:auto;display:block}
 <div class="wrap">
   <header>
     <a class="fb-home" href="../">← Terug naar startpagina</a>
-    <div class="eyebrow">Gymles · basisschool · groep 3–8</div>
-    <h1>Floorball in de gymzaal</h1>
-    <p class="lead">Tweeëndertig oefeningen met opstelling, uitleg en variaties. Tik op + In gymles om oefeningen te kiezen en pas per oefening de tijd aan. Kies per oefening het niveau en zet de timer aan.</p>
+    <div class="eyebrow">O10 · basisschool · groep 3–8</div>
+    <h1>Floorball O10 training</h1>
+    <p class="lead">Tweeëndertig oefeningen met opstelling, uitleg en variaties. Tik op + In training om oefeningen te kiezen en pas per oefening de tijd aan. Kies per oefening het niveau en zet de timer aan.</p>
     <button type="button" class="linkbtn" id="open-afs">Afspraken vooraf: veilig spelen met de stick</button>
   </header>
 
@@ -289,7 +289,7 @@ svg.hall{width:100%;height:auto;display:block}
 <div class="lesbar">
   <div class="in">
     <div><strong id="les-sum">0 oefeningen · 0 min</strong><div class="bar-sub" id="les-sub"></div></div>
-    <div class="barbtns"><button class="btn light" id="open-mat" type="button">Gymles</button><button class="btn" id="open-ob" type="button">Materiaal en veld</button><button class="btn" id="open-bib" type="button">Bibliotheek</button></div>
+    <div class="barbtns"><button class="btn light" id="open-mat" type="button">Training</button><button class="btn" id="open-ob" type="button">Materiaal en veld</button><button class="btn" id="open-bib" type="button">Bibliotheek</button></div>
   </div>
 </div>
 
@@ -299,7 +299,7 @@ svg.hall{width:100%;height:auto;display:block}
 </dialog>
 
 <dialog id="mat" aria-labelledby="mat-title">
-  <div class="dlg-head"><div><div class="num">Gymlesoverzicht</div><h2 id="mat-title">Mijn gymles</h2></div><button class="close" type="button" data-close aria-label="Sluiten">×</button></div>
+  <div class="dlg-head"><div><div class="num">Trainingsoverzicht</div><h2 id="mat-title">Mijn training</h2></div><button class="close" type="button" data-close aria-label="Sluiten">×</button></div>
   <div class="dlg-body"><div class="les-actions"><button type="button" class="btn primary" id="do-print">Print als pdf - oefeningen</button><button type="button" class="btn primary" id="do-print-all">Print als pdf - oefeningen, materiaal, ombouw</button><button type="button" class="btn" id="do-save">Bewaren</button><span class="msg" id="les-msg" role="status" aria-live="polite"></span><form class="save-row" id="save-row" hidden><label for="save-name" style="font-weight:700">Naam</label><input id="save-name" type="text" maxlength="60" autocomplete="off"><button type="submit" class="btn primary" id="save-ok">Opslaan</button><button type="button" class="btn" id="save-cancel">Annuleren</button><p class="hint" id="save-hint"></p></form></div><div id="sum-list"></div></div>
 </dialog>
 <dialog id="afs" aria-labelledby="afs-title">
@@ -309,7 +309,7 @@ svg.hall{width:100%;height:auto;display:block}
       <li>Nooit slaan tegen een stick, been of lichaam van een ander.</li>
       <li>Bal alleen spelen met de stick, niet met hand of hoofd.</li>
       <li>Geen duwen of trekken: floorball is een spel zonder contact.</li>
-    </ul></div><p class="note">Bespreek deze afspraken aan het begin van elke gymles en herhaal ze bij de eerste hoge stick.</p></div>
+    </ul></div><p class="note">Bespreek deze afspraken aan het begin van elke training en herhaal ze bij de eerste hoge stick.</p></div>
 </dialog>
 
 <dialog id="ob" aria-labelledby="ob-title">
@@ -1062,7 +1062,18 @@ const SLOTS_OLD=[
   {k:"partij",label:"Partij",cats:["Spel"]}
 ];
 const LVL=[["makkelijker","Makkelijker"],["basis","Basis"],["moeilijker","Moeilijker"]];
-const C={"key": "fb-sel", "oldKey": "fb-les2", "unit": "gymles", "Unit": "Gymles", "title": "Mijn gymles", "inLabel": "In gymles", "btnLabel": "Gymles", "people": "kinderen", "libName": "Training", "hallWord": "zaalindeling", "extra": "Reken 10 minuten extra voor uitleg en afsluiten."};
+const C={"key": "fb-sel", "oldKey": "fb-les2", "unit": "training", "Unit": "Training", "title": "Mijn training", "inLabel": "In training", "btnLabel": "Training", "people": "kinderen", "libName": "Training", "hallWord": "zaalindeling", "extra": "Reken 10 minuten extra voor uitleg en afsluiten."};
+/* Losse gymzaal-app (gymzaal/): dezelfde oefeningen, maar met het woord "gymles" in plaats van "O10"/"training". */
+if(window.FB_APP){
+  Object.assign(C,{unit:"gymles",Unit:"Gymles",title:"Mijn gymles",inLabel:"In gymles",btnLabel:"Gymles"});
+  document.title="Floorball in de gymzaal";
+  const set=(sel,t)=>{const el=document.querySelector(sel);if(el)el.textContent=t};
+  set("header .eyebrow","Gymles · basisschool · groep 3–8");
+  set("header h1","Floorball in de gymzaal");
+  set("#open-mat","Gymles");set("#mat-title","Mijn gymles");
+  const num=document.querySelector("#mat-title")&&document.querySelector("#mat-title").previousElementSibling;if(num)num.textContent="Gymlesoverzicht";
+  document.querySelectorAll("header .lead, .note").forEach(el=>{el.innerHTML=el.innerHTML.replace("In training","In gymles").replace("elke training","elke gymles")});
+}
 const PH_ORD={warm:0,kern:1,partij:2};
 const minClamp=v=>Math.max(1,Math.min(90,Math.round(Number(v))||1));
 let sel=[], WISSEL=4, curNr=null;
@@ -1350,7 +1361,8 @@ async function delTraining(b){
 }
 
 /* vast voorbeeld onderaan de bibliotheek */
-const VB={"nr": -1, "naam": "Voorbeeld gymles", "vast": true, "wissel": 3, "uitleg": "Een complete gymles van warming-up tot partij.", "sel": [{"id": "stoplicht", "lvl": "basis", "min": 8}, {"id": "slalom", "lvl": "basis", "min": 10}, {"id": "pionnen-omschieten", "lvl": "basis", "min": 10}, {"id": "pionnen-omver", "lvl": "basis", "min": 12}]};
+const VB={"nr": -1, "naam": "Voorbeeld training", "vast": true, "wissel": 3, "uitleg": "Een complete training van warming-up tot partij.", "sel": [{"id": "stoplicht", "lvl": "basis", "min": 8}, {"id": "slalom", "lvl": "basis", "min": 10}, {"id": "pionnen-omschieten", "lvl": "basis", "min": 10}, {"id": "pionnen-omver", "lvl": "basis", "min": 12}]};
+if(window.FB_APP){VB.naam="Voorbeeld gymles";VB.uitleg=VB.uitleg.replace("complete training","complete gymles")}
 function exampleHtml(){const s=VB.sel.filter(v=>EX.some(e=>e.id===v.id)),m=s.reduce((t,v)=>t+v.min,0)+Math.max(0,s.length-1)*VB.wissel;
   return `<ul class="bib-list" style="margin-top:10px"><li class="vast"><span class="vast-tag">Voorbeeld</span>
     <div class="slot-head"><strong class="sum-t">${VB.naam}</strong><span class="mins">vast</span></div>
