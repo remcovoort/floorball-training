@@ -21,6 +21,9 @@ Alles wat op `main` komt, staat binnen een paar minuten live.
 4. Test vóór je pusht of een pull request opent: open de gewijzigde pagina's in een browser
    (bijvoorbeeld `python3 -m http.server` in de root en Playwright), op telefoonbreedte (≈400 px)
    en desktop, en controleer dat de console geen fouten geeft.
+   **Blokkeer bij het testen alle verzoeken naar Supabase** (bijvoorbeeld in Playwright:
+   `page.route("**/*.supabase.co/**", lambda r: r.abort())`), anders tellen testklikken mee als
+   echte keuzes en scores in het overzicht.
 5. Hoog bij elke wijziging aan html, js of json de cacheversie op in `sw.js`
    (`const CACHE = "floorball-vN"` → `vN+1`). Anders blijven telefoons met de offline-app de
    oude versie zien.

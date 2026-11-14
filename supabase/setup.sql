@@ -99,3 +99,20 @@ $$;
 
 revoke all on function public.rate(text, text, uuid, int, text, text), public.pick(text, text, uuid, text), public.stats(text, text), public.feedback(text, text) from public;
 grant execute on function public.rate(text, text, uuid, int, text, text), public.pick(text, text, uuid, text), public.stats(text, text), public.feedback(text, text) to anon, authenticated;
+
+-- Aantal verschillende gebruikers (apparaten) dat iets heeft gekozen of gescoord, per programma.
+-- De regel met program = '*' is het totaal over alle programma's. p_app = null: alle apps samen.
+create or replace function public.user_counts(p_app text default null)
+returns table (program text, users int)
+language sql security definer set search_path = public stable as $$
+  with d as (
+    select program, device_id from ratings where p_app is null or app = p_app
+    union
+    select program, device_id from picks   where p_app is null or app = p_app
+  )
+  select program, count(distinct device_id)::int from d group by program
+  union all
+  select '*', count(distinct device_id)::int from d;
+$$;
+revoke all on function public.user_counts(text) from public;
+grant execute on function public.user_counts(text) to anon, authenticated;
