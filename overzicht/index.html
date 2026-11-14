@@ -55,6 +55,7 @@ tr.fbrow td{white-space:normal;background:var(--bg)}
     <h1>Scores oefeningen</h1>
     <p class="lead">Per oefening de gemiddelde score van alle gebruikers, het aantal stemmen, hoe vaak hij in een training is gekozen en de toelichtingen. Tik op een rij met toelichtingen om ze te lezen. Oefeningen met een gemiddelde onder de 2,5 (en minstens 3 stemmen) zijn gemarkeerd als kandidaat om te verwijderen.</p>
   </header>
+  <div class="bar" id="apps" role="group" aria-label="Kies app"></div>
   <div class="bar" id="progs" role="group" aria-label="Kies programma"></div>
   <div class="tiles" id="tiles"></div>
   <div class="tablewrap"><table><thead><tr>
@@ -66,6 +67,10 @@ tr.fbrow td{white-space:normal;background:var(--bg)}
 <script>
 const CFG=window.FB_CONFIG||{};
 const NAMES={o18:"O18",gymles:"O10",o14:"O14",o12:"O12"};
+/* Per app apart: de gymzaal-app heeft alleen gymles (groep 3–6) en o12 (groep 7–8). */
+const APPS=[["","Alle apps"],["training","Trainersapp"],["gymzaal","Gymzaal-app"]];
+const GYM_NAMES={gymles:"Groep 3–6",o12:"Groep 7–8"};
+let app="",CACHE={},APP_OK=true;
 let EXS={},STATS=[],FB=[],OPEN=new Set(),prog="gymles",sortK="avg",sortDir=1;
 const esc=t=>String(t).replace(/[&<>"]/g,c=>({"&":"&amp;","<":"&lt;",">":"&gt;",'"':"&quot;"})[c]);
 const fmt=v=>v==null?"–":(Math.round(v*10)/10).toLocaleString("nl-NL",{minimumFractionDigits:1,maximumFractionDigits:1});
@@ -79,30 +84,42 @@ function rows(){
     return (typeof x==="string"?x.localeCompare(y,"nl"):x-y)*sortDir||a.title.localeCompare(b.title,"nl")});
 }
 function render(){
-  document.getElementById("progs").innerHTML=Object.keys(EXS).map(p=>`<button type="button" class="chip" data-p="${p}" aria-pressed="${p===prog}">${NAMES[p]||p}</button>`).join("");
+  document.getElementById("apps").innerHTML=APP_OK?APPS.map(([k,l])=>`<button type="button" class="chip" data-app="${k}" aria-pressed="${k===app}">${l}</button>`).join(""):"";
+  const progs=Object.keys(EXS).filter(p=>app!=="gymzaal"||GYM_NAMES[p]);if(!progs.includes(prog)&&progs.length)prog=progs[0];
+  document.getElementById("progs").innerHTML=progs.map(p=>`<button type="button" class="chip" data-p="${p}" aria-pressed="${p===prog}">${(app==="gymzaal"&&GYM_NAMES[p])||NAMES[p]||p}</button>`).join("");
   const L=rows(),voted=L.filter(r=>r.votes),tv=L.reduce((t,r)=>t+r.votes,0),tp=L.reduce((t,r)=>t+r.picks,0);
   const avg=tv?L.reduce((t,r)=>t+(r.avg||0)*r.votes,0)/tv:null;
   document.getElementById("tiles").innerHTML=[["Oefeningen",L.length],["Met score",voted.length],["Stemmen",tv],["Gemiddeld",fmt(avg)],["Keer gekozen",tp]]
     .map(([l,v])=>`<div class="tile"><small>${l}</small><b>${v}</b></div>`).join("");
   document.getElementById("rows").innerHTML=L.length?L.map(r=>`<tr class="${r.votes>=3&&r.avg<2.5?"low":""}${r.comments?" has":""}" data-row="${r.id}"><td class="t">${r.title}<span class="sub">${r.cat||""}</span></td><td>${r.phase||""}</td>
     <td class="num">${stars(r.avg)} ${fmt(r.avg)}</td><td class="num">${r.votes}</td><td class="num">${r.picks}</td><td class="num">${r.pickers}</td><td class="num">${r.comments?`<span class="more">${r.comments} ${OPEN.has(r.id)?"▴":"▾"}</span>`:"0"}</td></tr>`+
-    (OPEN.has(r.id)?`<tr class="fbrow"><td colspan="7"><ul class="fbl">${FB.filter(f=>f.program===prog&&f.exercise_id===r.id).map(f=>`<li>${stars(f.score)} ${esc(f.feedback)}<small>${new Date(f.updated_at).toLocaleDateString("nl-NL",{day:"numeric",month:"short",year:"numeric"})}</small></li>`).join("")}</ul></td></tr>`:"")).join("")
+    (OPEN.has(r.id)?`<tr class="fbrow"><td colspan="7"><ul class="fbl">${FB.filter(f=>f.program===prog&&f.exercise_id===r.id&&(!app||(f.app||"training")===app)).map(f=>`<li>${stars(f.score)} ${esc(f.feedback)}<small>${new Date(f.updated_at).toLocaleDateString("nl-NL",{day:"numeric",month:"short",year:"numeric"})}</small></li>`).join("")}</ul></td></tr>`:"")).join("")
     :`<tr><td colspan="7" class="empty">Geen oefeningen gevonden.</td></tr>`;
 }
-document.addEventListener("click",e=>{const c=e.target.closest("[data-p]");if(c){prog=c.dataset.p;render()}
+document.addEventListener("click",e=>{const a=e.target.closest("[data-app]");if(a){app=a.dataset.app;OPEN.clear();loadStats();return}
+  const c=e.target.closest("[data-p]");if(c){prog=c.dataset.p;render()}
   const tr=e.target.closest("tr.has");if(tr){const id=tr.dataset.row;OPEN.has(id)?OPEN.delete(id):OPEN.add(id);render();return}
   const th=e.target.closest("th[data-k]");if(th){const k=th.dataset.k;sortDir=sortK===k?-sortDir:(k==="avg"||k==="title"||k==="phase"?1:-1);sortK=k;render()}});
 (async()=>{
   try{EXS=await (await fetch("../shared/exercises.json",{cache:"no-store"})).json()}catch(e){EXS={}}
   const note=document.getElementById("note");
   if(!CFG.supabaseUrl||!CFG.supabaseKey){note.textContent="De scores zijn nog niet gekoppeld aan de database. Hieronder staan alleen de oefeningen.";render();return}
-  try{const r=await fetch(CFG.supabaseUrl.replace(/\/$/,"")+"/rest/v1/rpc/stats",{method:"POST",headers:{"Content-Type":"application/json",apikey:CFG.supabaseKey,Authorization:"Bearer "+CFG.supabaseKey},body:JSON.stringify({p_program:null})});
-    if(!r.ok)throw new Error(r.status);STATS=await r.json();
-    try{const f=await fetch(CFG.supabaseUrl.replace(/\/$/,"")+"/rest/v1/rpc/feedback",{method:"POST",headers:{"Content-Type":"application/json",apikey:CFG.supabaseKey,Authorization:"Bearer "+CFG.supabaseKey},body:JSON.stringify({p_program:null})});if(f.ok)FB=await f.json()}catch(e){}
-    note.textContent=`Bijgewerkt: ${new Date().toLocaleString("nl-NL")}. Elk apparaat telt één keer per oefening; gekozen telt hooguit één keer per apparaat per dag.`}
-  catch(e){note.textContent="De scores konden niet worden geladen. Probeer het later opnieuw."}
-  render();
+  try{FB=(await rpc("feedback",{p_program:null}))||[]}catch(e){}
+  if(!(await loadStats()))note.textContent="De scores konden niet worden geladen. Probeer het later opnieuw.";
 })();
+async function rpc(fn,body){const r=await fetch(CFG.supabaseUrl.replace(/\/$/,"")+"/rest/v1/rpc/"+fn,{method:"POST",headers:{"Content-Type":"application/json",apikey:CFG.supabaseKey,Authorization:"Bearer "+CFG.supabaseKey},body:JSON.stringify(body)});
+  if(!r.ok)throw new Error(r.status);return r.json()}
+/* Scores ophalen voor de gekozen app (leeg = alle apps). Werkt de database nog zonder app-kolom, dan alleen "Alle apps". */
+async function loadStats(){
+  const note=document.getElementById("note");
+  try{
+    if(!(app in CACHE))CACHE[app]=await rpc("stats",app?{p_program:null,p_app:app}:{p_program:null});
+    STATS=CACHE[app];
+    note.textContent=`Bijgewerkt: ${new Date().toLocaleString("nl-NL")}. Elk apparaat telt één keer per oefening; gekozen telt hooguit één keer per apparaat per dag. Scores van vóór 14 november 2026 tellen allemaal bij de trainersapp.`;
+    render();return true}
+  catch(e){if(app){APP_OK=false;app="";return loadStats()}render();return false}
+}
+
 </script>
 </body>
 </html>

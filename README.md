@@ -18,7 +18,7 @@ Een nieuw programma toevoegen: maak een map met de pagina en zet een regel bij `
 
 - Sterren en keuzes gaan naar Supabase. De instellingen staan in `shared/config.js`.
 - De database maak je aan met `supabase/setup.sql` (SQL Editor in Supabase).
-- Het overzicht met per oefening de gemiddelde score, het aantal stemmen en hoe vaak hij is gekozen staat op `overzicht/`.
+- Het overzicht met per oefening de gemiddelde score, het aantal stemmen en hoe vaak hij is gekozen staat op `overzicht/`. Je kunt daar kiezen tussen alle apps, de trainersapp en de gymzaal-app (kolom `app` in Supabase; scores van vóór 14 november 2026 tellen bij de trainersapp).
 - Elk apparaat telt één keer per oefening. Opnieuw scoren vervangt de oude score.
 
 ## Overig

@@ -7,6 +7,9 @@ scrollTo(0,0);addEventListener("load",()=>scrollTo(0,0));addEventListener("pages
    - link terug naar het startscherm en de offline-app (service worker) */
 (function () {
   const PROGRAM = window.FB_PROGRAM;
+  /* Uit welke app: de gymzaal-app (gymzaal/loader.js) zet FB_APP.id = "gymzaal"; anders de trainersapp. */
+  const APP = (window.FB_APP && window.FB_APP.id) || "training";
+  const withApp = b => (APP === "training" ? b : Object.assign(b, { p_app: APP }));
   const CFG = window.FB_CONFIG || {};
   const SUPA = !!(CFG.supabaseUrl && CFG.supabaseKey);
   const HOSTED = !!window.FB_HOSTED;
@@ -223,21 +226,21 @@ scrollTo(0,0);addEventListener("load",()=>scrollTo(0,0));addEventListener("pages
       openFb.add(id); sentFb.delete(id);
       refreshAll();
       const ta = document.querySelector(`#grid [data-fbform="${id}"] textarea`); if (ta) ta.focus({ preventScroll: true });
-      enqueue({ fn: "rate", body: { p_program: PROGRAM, p_exercise: id, p_device: DEVICE, p_score: n } }); setTimeout(loadStats, 1200);
+      enqueue({ fn: "rate", body: withApp({ p_program: PROGRAM, p_exercise: id, p_device: DEVICE, p_score: n }) }); setTimeout(loadStats, 1200);
       return;
     }
     const tg = ev.target.closest("[data-fbtoggle]");
     if (tg) { const id = tg.dataset.fbtoggle; if (openFb.has(id)) { openFb.delete(id); delete drafts[id]; } else openFb.add(id); refreshAll(); return; }
     const t = ev.target.closest("[data-toggle]");
     if (t && t.getAttribute("aria-pressed") !== "true")
-      enqueue({ fn: "pick", body: { p_program: PROGRAM, p_exercise: t.dataset.toggle, p_device: DEVICE } });
+      enqueue({ fn: "pick", body: withApp({ p_program: PROGRAM, p_exercise: t.dataset.toggle, p_device: DEVICE }) });
   }, true);
   document.addEventListener("submit", ev => {
     const f = ev.target.closest("[data-fbform]"); if (!f) return;
     ev.preventDefault();
     const id = f.dataset.fbform, txt = f.querySelector("textarea").value.trim().slice(0, 500);
     notes[id] = txt; ls.set(FB_KEY, notes); delete drafts[id]; openFb.delete(id); sentFb.add(id); refreshAll();
-    if (mine[id]) { setTimeout(loadStats, 1200); enqueue({ fn: "rate", body: { p_program: PROGRAM, p_exercise: id, p_device: DEVICE, p_score: mine[id], p_feedback: txt } }); }
+    if (mine[id]) { setTimeout(loadStats, 1200); enqueue({ fn: "rate", body: withApp({ p_program: PROGRAM, p_exercise: id, p_device: DEVICE, p_score: mine[id], p_feedback: txt }) }); }
   }, true);
 
   /* ---------- overzicht van scores en toelichtingen (testversie: alleen voor de eigenaar) ---------- */
